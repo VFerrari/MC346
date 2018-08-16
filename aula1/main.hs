@@ -48,7 +48,7 @@ contains y (x:xs)
     | otherwise = contains y xs
     
 -- Posicao de um elemento na lista
--- TERMINAR
+-- NÃO ESTÁ FUNCIONANDO SE NÃO EXISTE O ELEMENTO
 index y [] = 0
 index y (x:xs)
     | y == x = 1 
@@ -151,7 +151,11 @@ rmN y n (x:xs)
     | otherwise = [x] ++ rmN y n xs
 
 -- Remove item da lista (ultima vez que aparece)
---rmLast y [] = []
+rmLast y [] = []
+rmLast y (x:xs)
+    | (y == x) = if ((amount y xs) == 0) then xs
+                                         else [x] ++ rmLast y xs
+    | otherwise = [x] ++ rmLast y xs
 
 
 -- Trocar itens da lista
