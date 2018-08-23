@@ -16,6 +16,8 @@ maior2 (x:xs) = let
 reverte [] = []
 reverte (x:xs) = (reverte xs) ++ [x]
 
+reverte2 x = rev x []
+
 rev [] acc = acc
 rev (x:xs) acc = rev xs (x:acc)
 
@@ -30,12 +32,12 @@ posicoes y x = posicoes' y x [] 1
             | otherwise = posicoes' y xs z (n+1)
 
 -- Split (retorna lista de listas, com os elementos da lista original antes do item, e depois)
-split [] _ = [[],[]]
+split [] _ = [[]]
 split x y = split' x y []
     where
         split' [] _ _ = [[]]
         split' (x:xs) y z
-            | x == y = [(reverte z),xs]
+            | x == y = [(reverte2 z),xs]
             | otherwise = split' xs y (x:z)
 
 -- Lista sem os n primeiros elementos
@@ -52,9 +54,9 @@ take' n (x:xs) = x:(take' (n-1) xs)
 splitall [] _ = [[]]
 splitall x y = splitall' x y []
     where
-        splitall' [] _ z = [reverte z]
+        splitall' [] _ z = [reverte2 z]
         splitall' (x:xs) y z
-            | x == y = (reverte z):(splitall' xs y [])
+            | x == y = (reverte2 z):(splitall' xs y [])
             | otherwise = splitall' xs y (x:z)
 
 -- Exs da ultima aula refeitos
@@ -72,11 +74,24 @@ sequencia n = sequencia' n []
         sequencia' 0 acc = acc
         sequencia' n acc = sequencia' (n-1) (n:acc)
 
--- Retorna lista sem o último elemento
-delLast [] = []
-delLast x = delLast' x []
-    where 
-        delLast' [] z = z
-        delLast' (x:xs) z
-            | (xs == []) = z
-            | otherwise = x:(delLast' xs z)
+-- Remove item da lista (ultima vez que aparece)
+rmLast _ [] = []
+rmLast y x = let
+    (z, lixo) = rmLast' y x in z
+    where
+        rmLast' _ [] = ([], False)
+        rmLast' y (x:xs) = let
+                (xxs, removeu) = rmLast' y xs
+            in if removeu ||  (x /= y) then (x:xxs, removeu)
+                                       else (xxs, True)
+
+-- Troca item da lista (ultima vez que aparece)
+trocaLast _ _ [] = []
+trocaLast v n x = let
+    (z, lixo) = trocaLast' v n x in z
+    where
+        trocaLast' _ _ [] = ([], False)
+        trocaLast' v n (x:xs) = let
+                (xxs, trocou) = trocaLast' v n xs
+            in if trocou || (x /= v) then (x:xxs, trocou)
+                                     else (n:xxs, True)
