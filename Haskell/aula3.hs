@@ -34,6 +34,10 @@ tam (x:xs) = 1 + tam xs
 soma [] = 0
 soma (x:xs) = x + soma xs
 
+reverte2 x = rev x []
+rev [] acc = acc
+rev (x:xs) acc = rev xs (x:acc)
+
 -- Contar quantas vezes o item aparece na lista
 amount y xs = tam [x | x <- xs, x == y]
 
@@ -45,3 +49,17 @@ contains y xs = [x | x <- xs, x == y] /= []
 
 -- Soma todos os pares
 somapares xs = soma [x | x <- xs, x `mod` 2 == 0]
+
+-- Split com duas strings
+-- ERRADO!
+splitString [] _ = [[]]
+splitString x [] = [x]
+splitString x y = splitString' x y []
+    where
+        splitString' x [] z = [(reverte2 z), x]
+        splitString' [] _ z = [(reverte2 z)]
+        splitString' (x:xs) (y:ys) z
+            | x /= y = splitString' xs (y:ys) (x:z)
+            | x == y = splitString' xs ys z
+             
+           
