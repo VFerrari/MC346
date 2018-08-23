@@ -35,7 +35,7 @@ posicoes y x = posicoes' y x [] 1
 split [] _ = [[]]
 split x y = split' x y []
     where
-        split' [] _ _ = [[]]
+        split' [] _ z = [reverte2 z]
         split' (x:xs) y z
             | x == y = [(reverte2 z),xs]
             | otherwise = split' xs y (x:z)
