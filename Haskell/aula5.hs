@@ -82,3 +82,9 @@ sumNodes (No x ae ad) = (sumNodes ae) + (sumNodes ad) + x
 postOrder Vazia = []
 postOrder (No x ae ad) = (postOrder ae) ++ (postOrder ad) ++ [x]
 
+-- Busca em largura em abb
+levelOrder x = loop [x]
+  where
+    loop [] = []
+    loop (Vazia:rs) = loop rs
+    loop (No v l r:rs) = v : loop (rs ++ [l, r])
