@@ -25,7 +25,7 @@ contains it l = (filter (\ x -> x == it) l) /= []
 amount it l = tam (filter (\ x -> x == it) l) 
 
 -- Remove item da lista (todas as vezes)
-rmAll it = filter (\ x -> x /= it)
+rmAll it = filter (\x -> x /= it)
 
 -- Troca item velho por novo na lista (todas as vezes)
 trocaAll v n = map (\x -> if x==v then n else x)
@@ -42,7 +42,3 @@ reverte = foldl (\acc x -> x:acc) []
 ult :: [a] -> a  
 ult = foldl1 (\_ x -> x)  
 
-
--- Exercícios da aula
--- Transpoe uma matriz
---transpose = 
