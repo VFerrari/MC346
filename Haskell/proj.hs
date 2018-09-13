@@ -10,11 +10,14 @@
 
 
 
--- TODO: Criar o tipo do grafo
--- TODO: Ler o grafo
--- TODO: biblioteca simples para operações em grafo (existe o Data.Graph mas não parece ser o que queremos)
+-- TODO: Criar o tipo do grafo*
+-- TODO: Ler o grafo e as características.
+-- TODO: Biblioteca simples para operações em grafo (existe o Data.Graph mas não parece ser o que queremos)*
 -- TODO: Modelar o grafo para simples implementação do algoritmo de Djikstra
+-- TODO: Djikstra
+-- TODO: Resposta
 
+-- * = Mais urgentes
 
 -- Ideias para modelagem:
 -- Junta todas as arestas entre 2 nós em uma, com peso igual ao menor.
