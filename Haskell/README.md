@@ -4,6 +4,10 @@ MC346 - Haskell
 Linguagem de programação puramente funcional ([Wikipedia](https://en.wikipedia.org/wiki/Haskell_(programming_language)), [Site Oficial](https://www.haskell.org/)).
 Embora não seja uma das linguagens mais utilizadas, seu paradigma ganha cada vez mais relevância.
 
+<a href="https://www.slideshare.net/paulszulc/fun-never-stops-introduction-to-haskell-programming-language" a="https://www.slideshare.net/paulszulc/fun-never-stops-introduction-to-haskell-programming-language">
+ <img src=https://image.slidesharecdn.com/funneverstops-151105094753-lva1-app6892/95/fun-never-stops-introduction-to-haskell-programming-language-10-638.jpg?cb=1446717110>
+</a>
+
 Aulas
 -----
 Curso separado em 10 aulas. As 9 primeiras estão disponíveis na pasta `Aulas`.
@@ -37,3 +41,7 @@ O livro texto utilizado foi [Learn You Haskell](http://learnyouahaskell.com/chap
 Ambiente
 --------
 Foi utilizado o [GHC (Glasgow Haskell Compiler)](https://www.haskell.org/ghc/) e seu ambiente interativo, o GHCI.
+
+<a href="https://xkcd.com/1270/" a="https://xkcd.com/1270/">
+ <img src=https://imgs.xkcd.com/comics/functional.png>
+</a>
