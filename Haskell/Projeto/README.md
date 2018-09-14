@@ -23,9 +23,9 @@ Para visualizar o arquivo como uma página sem baixá-lo, utilize a ferramenta [
 
 
 ## Coisas que restam fazer
-    [ ] Criar o tipo do grafo.
-    [ ] Ler o grafo e as características.
-    [ ] Biblioteca simples para operações em grafo (existe o Data.Graph mas não parece ser o que queremos).
-    [ ] Modelar o grafo para simples implementação do algoritmo de Djikstra
-    [ ] Djikstra
-    [ ] Resposta
+  -  [ ] Criar o tipo do grafo.
+  -  [ ] Ler o grafo e as características.
+  -  [ ] Biblioteca simples para operações em grafo (existe o Data.Graph mas não parece ser o que queremos).
+  -  [ ] Modelar o grafo para simples implementação do algoritmo de Djikstra
+  -  [ ] Djikstra
+  -  [ ] Resposta
