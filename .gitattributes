@@ -1,3 +1,9 @@
 
+# Normalização de fim de linha
+* text=auto
+
 # Exclui os arquivos HTML das aulas do GitHub Linguist
-.html linguist-detectable=false
+Haskell/Aulas/* linguist-documentation
+Haskell/Projeto/enunciado.html linguist documentation
+
+
