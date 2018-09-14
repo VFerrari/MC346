@@ -11,6 +11,8 @@
 
 -- Teste:
 
+import Data.Char
+
 soma1 ch [] = [(ch,1)]
 soma1 ch ((x,n):xs) 
      | x==ch = (x,n+1):xs

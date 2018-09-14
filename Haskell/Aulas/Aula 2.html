@@ -1,0 +1,495 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<!-- 2018-08-16 Thu 14:30 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 2</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Jacques Wainer">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Aula 2</h1>
+<p>
+<a href="http://learnyouahaskell.com/chapters">livro texto</a> capitulos: 2 (tuplas, range, list comprehension) , 4 (where, let, case)  e 5 (recursao)
+</p>
+
+<p>
+<a href="https://repl.it/@mc346b">Haskell online</a>
+</p>
+
+<div id="outline-container-org8e46b56" class="outline-2">
+<h2 id="org8e46b56"><span class="section-number-2">1</span> Variaveis locais</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>posição do item na lista (0 se nao esta la, 1 se é o primeiro)</li>
+</ul>
+<pre class="example">posicao it [] = 0
+posicao it (x:xs) 
+  | it == x = 1
+  | otherwise = if (posicao it xs) == 0 then 0 else (posicao it xs) + 1  --- dupla recursao em alguns casos
+</pre>
+
+
+
+<ul class="org-ul">
+<li>maior elemento de uma lista - FAZER p/ proxima aula - variáveis locais</li>
+</ul>
+
+<pre class="example">maior [x] = x
+maior (x:xs) = if x&gt;(maior xs) then x else (maior xs)  -- dupla recursao
+</pre>
+
+<p>
+Esses dois codigos sao exponenciais (em alguns casos) no tamanho da lista quando obviamente eles podem ser lineares
+</p>
+
+<p>
+Nos dois casos precisamos armazenar os valores <code>posicao it xs</code> e <code>maior xs</code> para usa-los em mais de um lugar
+</p>
+
+
+<p>
+Where - define as variaveis (e funcoes) locais depois da chamada "principal"
+</p>
+<pre class="example">maior [x] = x
+maior (x:xs) = if x&gt;mm then x else mm
+    where mm = maior xs
+</pre>
+
+
+
+
+<p>
+let - define as variaveis e funcoes locais antes da chamada principal
+</p>
+<pre class="example">maior [x] = x
+maior (x:xs) = let
+         mm = maior xs
+      in if x&gt;mm then x else mm 
+</pre>
+
+<p>
+where permite continuar usando guards
+</p>
+<pre class="example">maior [x] = x
+maior (x:xs) 
+   | x&gt;mm = x
+   | otherwise = mm
+   where mm = maior xs
+</pre>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org986bb80" class="outline-2">
+<h2 id="org986bb80"><span class="section-number-2">2</span> Recursao com acumulador</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+As funcoes recursivas ate agora sao do tipo - recursao no tail e depois computa a solucao com o head
+</p>
+<pre class="example">soma [] = 0
+soma (x:xs) = x + (soma xs)
+</pre>
+
+<p>
+A ideia do acumulador é fazer o calculo usando o head e o acumulador recebido e passar o acumulador alterado para a recursao.
+</p>
+
+<p>
+O acumulador acumula o trabalho das instancias que vieram antes nao recursao
+</p>
+<pre class="example">--soma' l acc
+soma [] acc = acc   -- caso base sempre retorna o acumulador
+soma (x:xs) acc = soma xs (acc+x) -- caso recursivo faz primiro a conta (acc+x) e so no final chama a recursao
+</pre>
+
+<p>
+Mas a primeira chamada funçao <code>soma'</code> precisa setar o acumulador da forma certa. A funçao <code>soma'</code> é uma função local de <code>soma</code>
+</p>
+
+<pre class="example">soma l = soma' l 0
+  where soma' [] acc = acc
+        soma' (x:xs) acc = soma' xs (x+acc)
+</pre>
+
+<p>
+Recursão com acumulador podem fazer a otimizacao de ultima chamada - 
+torna o codigo recursivo tao rapido como um codigo iterativo. 
+</p>
+</div>
+
+<div id="outline-container-org22e2ab2" class="outline-3">
+<h3 id="org22e2ab2"><span class="section-number-3">2.1</span> caso do reverte</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>reverte uma lista - FAZER p/ próxima aula - recursão com acumulados</li>
+</ul>
+<pre class="example">reverte [] = []
+reverte (x:xs) = (reverte xs) ++ [x]
+</pre>
+
+<p>
+Esse codigo é quadratico pois o <code>++</code> passeia pela primeira lista "ate achar o final" para grudar a segunda lista
+</p>
+<pre class="example">append [] l = l
+append (x:xs) l = x:(append xs l)
+</pre>
+
+<p>
+neste caso, recursao com acumulador torma a funçao linear
+</p>
+<pre class="example">reverte l = reverte' l []
+   where 
+     reverte' [] acc = acc
+     reverte' (x:xs) acc = reverte' xs (x:acc)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org63c8c4a" class="outline-3">
+<h3 id="org63c8c4a"><span class="section-number-3">2.2</span> outras solucoes para  o maior</h3>
+<div class="outline-text-3" id="text-2-2">
+<pre class="example">maior (x:xs) = maior' xs x
+  where maior' [] a = a
+        maior' (y:ys) a 
+           | y&gt;a = maior' ys y
+           | otherwise = maior' ys a
+
+maior [x] = x
+maior (x;xs) = max' x (maior xs)
+  where max' a b 
+        | a &gt; b = a
+        | otherwise = b
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org22d1c51" class="outline-2">
+<h2 id="org22d1c51"><span class="section-number-2">3</span> Tupla</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+"quase-lista" de elementos de tipos diferentes. Mas as funcoes de lista NAO funcionam para tuplas
+</p>
+
+<pre class="example">("Jose",47, [4,5])
+</pre>
+
+<p>
+mas pattern matching funciona em tuplas
+</p>
+<pre class="example">somaAno (n,id,l) = (n, id+1,l)
+</pre>
+
+<p>
+Retornar uma tupla é o jeito para uma função retornar mais de uma coisa
+</p>
+</div>
+
+<div id="outline-container-orgf7826a0" class="outline-3">
+<h3 id="orgf7826a0"><span class="section-number-3">3.1</span> trocaultimo</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>remove item da lista (a ultima vez que ele aparece) **</li>
+</ul>
+
+<pre class="example">trocaultimo' velho novo []  = ([],False)
+trocaultimo' velho novo (x:xs) = let
+             (xxs,trocou) = trocaultimo' velho novo xs
+          in if trocou || (x /= velho)  then (x:xxs, trocou)
+                                        else (novo:xxs, True)
+      
+</pre>
+
+<pre class="example">trocaultimo' _ _  []  = ([],False)  -- variaveis nao importantes
+</pre>
+
+<p>
+Mais simples
+</p>
+<pre class="example">trocaultimo n v l = reverte (troca1 n v (reverte l))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4012f83" class="outline-2">
+<h2 id="org4012f83"><span class="section-number-2">4</span> List Comprehension</h2>
+<div class="outline-text-2" id="text-4">
+<pre class="example">[ x+10 | x &lt;- [1..10], x `mod` 2 == 0]
+</pre>
+
+<pre class="example">somapares xs = soma [x | x &lt;- xs, x `mod` 2 == 0]
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orge19fb7a" class="outline-2">
+<h2 id="orge19fb7a"><span class="section-number-2">5</span> Exercicios</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+refaça os exercicios da aula passada usando variaveis locias, recursao 
+com acumulador, list comprehension, funcoes retornando tuplas,  
+combinando funçoes ja implementadas, etc se for o caso. Em particular 
+tente usar acumuladores para aprender apensar dessa forma. 
+</p>
+
+
+<p>
+Fazer os exercícios abaixo usando apenas <code>head</code> <code>tail</code> <code>:</code> <code>++</code> 
+</p>
+
+<ul class="org-ul">
+<li>posicoes - dado um item e uma lista, retorna uma lista com todas as 
+posicoes (primeiro elemento esta na posicao 1) do item na lista</li>
+
+<li>split - dado um item e uma lista retorna uma lista de listas, todos 
+os elementos da lista antes do item (a primeira vez que ele aparece) e 
+todos depois</li>
+</ul>
+<pre class="example">split "qwertyuiopoiuyt" 't' ==&gt; ["qwer", "yuiopoiuyt"]
+</pre>
+
+<ul class="org-ul">
+<li>splitall  - mesma coisa que o split mas retorna todas as sublistas</li>
+</ul>
+<pre class="example">splitall "qwertyuiopoiuytxxt" 't' ==&gt; ["qwer", "yuiopoiuy", "xx", ""]  ou  ["qwer", "yuiopoiuy", "xx"]
+</pre>
+
+<ul class="org-ul">
+<li>drop n lista - a lista sem os n primeiros elementos</li>
+
+<li>take n lista  - os primeiros n elementos da lista</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Jacques Wainer</p>
+<p class="date">Created: 2018-08-16 Thu 14:30</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+
+</body></html>

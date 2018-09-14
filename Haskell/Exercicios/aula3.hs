@@ -51,7 +51,7 @@ contains y xs = [x | x <- xs, x == y] /= []
 somapares xs = soma [x | x <- xs, x `mod` 2 == 0]
 
 -- Split com duas strings
--- ERRADO!
+-- ERRADO! Corrigido nas proximas aulas.
 splitString [] _ = [[]]
 splitString x [] = [x]
 splitString x y = splitString' x y []
