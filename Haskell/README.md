@@ -13,15 +13,16 @@ Curso separado em 10 aulas. As 9 primeiras estão disponíveis na pasta `Aulas`.
 - Aula 3: List comprehension, tipos, declaração de tipos de funções.
 - Aula 4: Teste 2, Lazy Evaluation.
 - Aula 5: Criação de tipos novos, estruturas de dados (árvore de busca binária).
-- Aula 6: Teste 3, Currying, funções de alto nível (`flip`, `zipWith`, `map`, `filter`, `fold`), funções anônimas (__lambdas__).
+- Aula 6: Teste 3, Currying, funções de alto nível (`flip`, `zipWith`, `map`, `filter`, `fold`), funções anônimas (_lambdas_).
 - Aula 7: Composição, `$`, exercícios da matéria da aula anterior.
 - Aula 8: Teste 4, Módulos.
-- Aula 9: Maybe, __functor__, __applicative__, __monad__, I/O. 
+- Aula 9: Maybe, _functor_, _applicative_, _monad_, I/O. 
 - Aula 10: Teste 5.
 
 Exemplos em sala e exercícios
 -----------------------------
 Disponíveis na pasta `Exercícios`, são aplicações da teoria dada nas aulas correspondentes, e soluções de testes.
+
 **AVISO:** nem todos estão corretos, ou otimizados. A aula 8 causa erros, mas o conceito da solução do teste está correto.
 
 Projeto

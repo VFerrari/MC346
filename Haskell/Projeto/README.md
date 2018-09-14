@@ -16,6 +16,8 @@ Retorna o melhor caminho, o modo de chegar a cada ponto, e o tempo total gasto.
 ## Enunciado
 O enunciado pode ser encontrado no arquivo `enunciado.html`.
 
+Para visualizar o arquivo como uma página sem baixá-lo, utilize a ferramenta [HTMLPreview](http://htmlpreview.github.io/).
+
 ## Referências utilizadas
 * [Learn You Haskell](http://learnyouahaskell.com/chapters) - Livro texto usado para Haskell
 
