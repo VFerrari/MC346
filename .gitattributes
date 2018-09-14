@@ -1,0 +1,3 @@
+
+# Exclui os arquivos HTML das aulas do GitHub Linguist
+.html linguist-detectable=false
