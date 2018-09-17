@@ -23,6 +23,12 @@
 -- Junta todas as arestas entre 2 nós em uma, com peso igual ao menor.
 -- Menor peso: a pé ou soma da metade do período do t. publico e o peso normal.
 
+import Data.Map.Strict as Map
+import Data.Maybe
+
 main = do 
        input <- getContents
        putStrLn $ head $ lines input -- Placeholder
+
+-- Insere uma aresta no grafo
+readInput g (or:de:modo:peso) = Map.insert de (modo,peso) $ fromMaybe $ Map.lookup or
