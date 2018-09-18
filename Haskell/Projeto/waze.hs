@@ -36,12 +36,6 @@ main = do
 -- Função que analisa uma linha da entrada, criando o grafo.
 -- Insere o vértice de origem no grafo se não existe.
 -- O(lgn)
-readInput g (ori:resto)
-    | Map.member ori g = insertEdge (ori:resto) g
-    | otherwise = insertEdge (ori:resto) $ Map.insert ori Map.empty g
-
--- Função que insere uma aresta no grafo.
--- Supõe que o vértice de origem já está no grafo.
--- O(lgn)
-insertEdge (ori:dest:modo:strPeso:[]) g = Map.insert ori (Map.insert dest (modo,peso) $ fromJust $ Map.lookup ori g) g
+readInput g (ori:dest:modo:strPeso:[]) = insert ori (insertEdge $ Map.lookup ori g) g
     where peso = read strPeso :: Float
+          insertEdge map = insert dest (modo,peso) $ fromMaybe empty map
