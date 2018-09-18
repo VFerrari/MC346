@@ -43,5 +43,5 @@ readInput g (ori:resto)
 -- Função que insere uma aresta no grafo.
 -- Supõe que o vértice de origem já está no grafo.
 -- O(lgn)
-insertEdge (ori:dest:modo:strPeso:[]) g = Map.insert dest (modo,peso) $ fromJust $ Map.lookup ori g
+insertEdge (ori:dest:modo:strPeso:[]) g = Map.insert ori (Map.insert dest (modo,peso) $ fromJust $ Map.lookup ori g) g
     where peso = read strPeso :: Float
