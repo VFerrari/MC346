@@ -30,12 +30,15 @@ main = do
        input <- getContents
        let splitInput = lines input
        let graph = Map.empty
-       print $ readInput graph $ words $ head splitInput
-       --putStrLn $ head $ lines input -- Placeholder
+       
+       -- Temporário - lê duas linhas da entrada, insere no grafo, e o imprime
+       let lol = readInput graph $ words $ head splitInput
+       print $ readInput lol $ words $ head $ drop 1 splitInput
 
 -- Função que analisa uma linha da entrada, criando o grafo.
 -- Insere o vértice de origem no grafo se não existe.
 -- O(lgn)
 readInput g (ori:dest:modo:strPeso:[]) = insert ori (insertEdge $ Map.lookup ori g) g
-    where peso = read strPeso :: Float
-          insertEdge map = insert dest (modo,peso) $ fromMaybe empty map
+    where peso = read strPeso :: Float    
+          insertEdge map = insertWith (++) dest [(modo,peso)] $ fromMaybe empty map  -- Insere uma aresta no grafo.
+
