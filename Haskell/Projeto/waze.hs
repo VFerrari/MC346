@@ -28,7 +28,20 @@ import Data.Maybe
 
 main = do 
        input <- getContents
-       putStrLn $ head $ lines input -- Placeholder
+       let splitInput = lines input
+       let graph = Map.empty
+       print $ readInput graph $ words $ head splitInput
+       --putStrLn $ head $ lines input -- Placeholder
 
--- Insere uma aresta no grafo
-readInput g (or:de:modo:peso) = Map.insert de (modo,peso) $ fromMaybe $ Map.lookup or
+-- Função que analisa uma linha da entrada, criando o grafo.
+-- Insere o vértice de origem no grafo se não existe.
+-- O(lgn)
+readInput g (ori:resto)
+    | Map.member ori g = insertEdge (ori:resto) g
+    | otherwise = insertEdge (ori:resto) $ Map.insert ori Map.empty g
+
+-- Função que insere uma aresta no grafo.
+-- Supõe que o vértice de origem já está no grafo.
+-- O(lgn)
+insertEdge (ori:dest:modo:strPeso:[]) g = Map.insert dest (modo,peso) $ fromJust $ Map.lookup ori g
+    where peso = read strPeso :: Float
