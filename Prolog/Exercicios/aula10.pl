@@ -1,3 +1,7 @@
+% Aula: Não teve material.
+
+% Exercicios: familiares
+
 homem(antonio).
 homem(helu).
 homem(chamyto).
@@ -35,3 +39,5 @@ tio(X,Y) :- pai(Z,Y),irmao(X,Z).
 tio(X,Y) :- mae(Z,Y),irmao(X,Z).
 tio(X,Y) :- pai(Z,Y),meioirmao(X,Z).
 tio(X,Y) :- mae(Z,Y),meioirmao(X,Z).
+
+primo(X,Y) :- homem(X),tio(Z,Y),pai(Z,X)
