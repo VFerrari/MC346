@@ -26,14 +26,27 @@
 import Data.Map.Strict as Map
 import Data.Maybe
 
-main = do 
-       input <- getContents
-       let splitInput = lines input
+main = do
+
+       -- Lendo a entrada
+       input <- getContents 
        let graph = Map.empty
+       let linInput = lines input 
+       
+       -- Separando a entrada em tres seções
+       let gInput = takeWhile (not . Prelude.null) linInput -- Grafo
+       let modInput = (init . init) $ tail $ dropWhile (not . Prelude.null) linInput
+       let pathInput = last linInput -- Caminho desejado
+       
+       -- Temporário: imprime a entrada dividida
+       print gInput
+       print modInput
+       print pathInput
+       putStrLn ""
        
        -- Temporário - lê duas linhas da entrada, insere no grafo, e o imprime
-       let lol = readInput graph $ words $ head splitInput
-       print $ readInput lol $ words $ head $ drop 1 splitInput
+       let lol = readInput graph $ words $ head gInput
+       print $ readInput lol $ words $ head $ drop 1 gInput
 
 -- Função que analisa uma linha da entrada, criando o grafo.
 -- Insere o vértice de origem no grafo se não existe.
@@ -41,4 +54,3 @@ main = do
 readInput g (ori:dest:modo:strPeso:[]) = insert ori (insertEdge $ Map.lookup ori g) g
     where peso = read strPeso :: Float    
           insertEdge map = insertWith (++) dest [(modo,peso)] $ fromMaybe empty map  -- Insere uma aresta no grafo.
-
