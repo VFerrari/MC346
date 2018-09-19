@@ -32,7 +32,7 @@ main = do
        -- Separando a entrada em tres seções
        let gInput = takeWhile (not . Prelude.null) linInput -- Grafo
        let modInput = (init . init . tail) $ dropWhile (not . Prelude.null) linInput
-       let pathInput = last linInput -- Caminho desejado
+       let pathInput = words $ last linInput -- Caminho desejado
        
        -- Temporário: imprime a entrada dividida
     --    print gInput
@@ -40,28 +40,31 @@ main = do
     --    print pathInput
     --    putStrLn ""
        
-       -- Lê o grafo
+       -- Cria o dicionário de modificadores
        let mapModo = fromList $ Prelude.map (mapLines) $ Prelude.map (words) modInput
-       let graph = readGraph gInput mapModo
-       let modGraph = shortGraph graph
-       print modGraph
-       putStrLn ""
-    --    print graph
 
--- Transforma uma linha da entrada com os modificadores em um dicionário.
+       -- Lê o grafo e o ordena
+       let modGraph = shortGraph $ readGraph gInput mapModo
+
+       print modGraph
+
+-- Transforma uma linha da entrada com os modificadores em uma tupla.
+-- A tupla contém uma string e um float (convertido de string).
 mapLines (a:b:[]) = (a,c) where c = read b :: Float
 
--- Função que analisa uma linha da entrada, criando o grafo.
--- Insere o vértice de origem no grafo se não existe.
--- O(lgn)
+-- Insere uma aresta no grafo a partir de uma linha da entrada
+-- Insere o vértice de origem se não existe no grafo.
+-- Aplica os modificadores às arestas correspondentes (período do t. publico/2).
+-- Recebe o dicionário de modificadores, o grafo e uma linha da entrada, retornando o grafo.
 readInput g mapModo (ori:dest:modo:strPeso:[])  = insert ori (insertEdge $ Map.lookup ori g) g
     where peso = read strPeso :: Float
-          custoEstimado = Map.lookup modo mapModo
-          pesoReal = peso + (fromMaybe 0.0 custoEstimado)/2
-          insertEdge m = insertWith (++) dest [(modo,pesoReal)] $ fromMaybe empty m  -- Insere uma aresta no grafo.
+          modif = Map.lookup modo mapModo                                           -- Encontra modificador (se existe) no dicionário
+          pesoReal = peso + (fromMaybe 0.0 modif)/2                                             
+          insertEdge m = insertWith (++) dest [(modo,pesoReal)] $ fromMaybe empty m -- Insere a aresta, concatenando a tupla (modo,peso) na lista.
 
 -- Função que percorre a entrada, construindo o grafo.
 -- O grafo é modelado como uma lista de adjacências, feito com Maps no lugar de listas.
 readGraph inp modos = Prelude.foldl(\g lin -> readInput g modos $ words lin) empty inp
 
+-- Função que ordena as arestas por peso.
 shortGraph oriGraph =  Map.map (Map.map (sortBy (\(_,a) (_,b) -> compare a b))) oriGraph
