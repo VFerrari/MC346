@@ -8,11 +8,6 @@
 -- Modelagem por meio de grafo, e o menor caminho entre dois pontos (um para um).
 -- Retorna o melhor caminho, o modo de chegar a cada ponto, e o tempo total gasto.
 
-
-
--- TODO: Criar o tipo do grafo*
--- TODO: Ler o grafo e as características.
--- TODO: Biblioteca simples para operações em grafo (existe o Data.Graph mas não parece ser o que queremos)*
 -- TODO: Modelar o grafo para simples implementação do algoritmo de Djikstra
 -- TODO: Djikstra
 -- TODO: Resposta
@@ -30,12 +25,11 @@ main = do
 
        -- Lendo a entrada
        input <- getContents 
-       let graph = Map.empty
        let linInput = lines input 
        
        -- Separando a entrada em tres seções
        let gInput = takeWhile (not . Prelude.null) linInput -- Grafo
-       let modInput = (init . init) $ tail $ dropWhile (not . Prelude.null) linInput
+       let modInput = (init . init . tail) $ dropWhile (not . Prelude.null) linInput
        let pathInput = last linInput -- Caminho desejado
        
        -- Temporário: imprime a entrada dividida
@@ -44,13 +38,17 @@ main = do
        print pathInput
        putStrLn ""
        
-       -- Temporário - lê duas linhas da entrada, insere no grafo, e o imprime
-       let lol = readInput graph $ words $ head gInput
-       print $ readInput lol $ words $ head $ drop 1 gInput
+       -- Lê o grafo
+       let graph = readGraph gInput
+       print graph
 
 -- Função que analisa uma linha da entrada, criando o grafo.
 -- Insere o vértice de origem no grafo se não existe.
 -- O(lgn)
 readInput g (ori:dest:modo:strPeso:[]) = insert ori (insertEdge $ Map.lookup ori g) g
     where peso = read strPeso :: Float    
-          insertEdge map = insertWith (++) dest [(modo,peso)] $ fromMaybe empty map  -- Insere uma aresta no grafo.
+          insertEdge m = insertWith (++) dest [(modo,peso)] $ fromMaybe empty m  -- Insere uma aresta no grafo.
+
+-- Função que percorre a entrada, construindo o grafo.
+-- O grafo é modelado como uma lista de adjacências, feito com Maps no lugar de listas.
+readGraph inp = Prelude.foldl(\g lin -> readInput g $ words lin) empty inp
