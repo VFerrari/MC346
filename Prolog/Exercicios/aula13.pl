@@ -19,3 +19,51 @@ acessa(CH,[_|R],V) :- acessa(CH,R,V).
 access(CH,DIC,V) :- append(_,[dic(CH,V)|_],DIC).
 
 % Exercícios:
+
+% Retorna o maior elemento de uma abb
+maior(arv(X,_,vazia),X) :- !,true.
+maior(arv(_,_,AD),R) :- maior(AD,R).
+
+% Retorna o menor elemento de uma abb
+menor(arv(X,vazia,_),X) :- !, true.
+menor(arv(_,AE,_),R) :- menor(AE,R).
+
+% Verifica se uma árvore é uma abb
+checkBin(vazia).
+checkBin(arv(_,vazia,vazia))  :- !, true.
+checkBin(arv(X,AE,vazia)) :- !, checkBin(AE), maior(AE,R), R<X.
+checkBin(arv(X,vazia,AD)) :- !, checkBin(AD), menor(AD,R), R>X.
+checkBin(arv(X,AE,AD))    :- !, checkBin(AE), checkBin(AD), maior(AE,R), menor(AD,L), X<L, X>R. 
+
+% Insere um item em uma abb
+insert(X,vazia,arv(X,vazia,vazia)).
+insert(X,arv(X,AE,AD),arv(X,AD,AE)).
+insert(X,arv(I,AE,AD),arv(I,R,AD)) :- X < I, insert(X,AE,R), !.
+insert(X,arv(I,AE,AD),arv(I,AE,R)) :- X > I, insert(X,AD,R), !.
+
+% Remove um item de uma abb
+remove(_,vazia,vazia).
+remove(X,arv(I,AE,AD), arv(I,R,AD)) :- X < I, remove(X,AE,R), !.
+remove(X,arv(I,AE,AD), arv(I,AE,R)) :- X > I, remove(X,AD,R), !.
+remove(X,arv(X,AE,AD), R) :- delete(AD,AE,R).
+
+delete(vazia,vazia,vazia).
+delete(vazia,AD,AD).
+delete(AE,vazia,AE).
+delete(AE,AD,arv(M,AE,R)) :- menor(AD,M), remove(M,AD,R).
+
+% Calcula a profundidade máxima de uma abb
+depth(vazia,0).
+depth(arv(_,AE,AD),R) :- depth(AE,E), depth(AD,D), (E > D -> R is E+1 ; R is D+1).
+
+% Converte abb em uma lista em ordem infixa (esq,no,dir).
+inOrder(vazia,[]).
+inOrder(arv(X,AE,AD),R) :- inOrder(AE,E), inOrder(AD,D), append(E,[X|D],R).
+
+% Converte abb em uma lista em ordem prefixa (no, esq, dir)
+preOrder(vazia,[]).
+preOrder(arv(X,AE,AD),R) :- preOrder(AE,E), preOrder(AD,D), append([X|E],D,R).
+
+% Converte uma lista em abb
+buildTree([],vazia).
+buildTree([X|XS],R) :- buildTree(XS,T), insert(X,T,R), !.
