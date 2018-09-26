@@ -19,6 +19,7 @@ acessa(CH,[_|R],V) :- acessa(CH,R,V).
 access(CH,DIC,V) :- append(_,[dic(CH,V)|_],DIC).
 
 % Exercícios:
+% 1- Árvores
 
 % Retorna o maior elemento de uma abb
 maior(arv(X,_,vazia),X) :- !,true.
@@ -67,3 +68,21 @@ preOrder(arv(X,AE,AD),R) :- preOrder(AE,E), preOrder(AD,D), append([X|E],D,R).
 % Converte uma lista em abb
 buildTree([],vazia).
 buildTree([X|XS],R) :- buildTree(XS,T), insert(X,T,R), !.
+
+% 2- Dicionários
+
+% Insere um par chave valor no dicionario (ou troca o valor associado a chave se ela já está no dicionario)
+insertKey(K,V,[],[dic(K,V)]) :- !, true.
+insertKey(K,NV,[dic(K,_)|R],[dic(K,NV)|R]) :- !, true.
+insertKey(K,V,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- insertKey(K,V,R,RR).  
+
+% Remove uma chave (e seu valor) do dicionário
+removeKey(K,[],[]) :- !, true.
+removeKey(K,[dic(K,V)|R],R) :- !, true.
+removeKey(K,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- removeKey(K,R,RR).
+
+% Contador: dicionario onde valor associado é um inteiro. 
+% Dado um contador soma um ao valor associado a uma chave, ou se ela nao estiver no dicionario, acrescenta a chave com valor 1.
+add1(K,[],[dic(K,1)]) :- !, true.
+add1(K,[dic(K,V)|R],[dic(K,VV)|R]) :- VV is V+1, !.
+add1(K,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- add1(K,R,RR).
