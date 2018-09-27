@@ -32,6 +32,7 @@ main = do
 
        -- Lê o grafo e o ordena
        let graph = readGraph prettyInput mapModo empty
+       let ant = djikstra graph ("a", "a-pe")
 
        print graph
        
@@ -65,29 +66,31 @@ insEdge (ori,dest,modoSaida,peso) modoEnt g
     where insertEdge m = insert (dest,modoEnt) peso $ fromMaybe empty m                 
     -- Insere a aresta, gerando o par (destino,modo) e o seu peso como valor.
 
---djikstra :: (Ord t) => Map ([Char], [Char]) (Map ([Char], [Char]) t) -> ([Char], [Char]) -> Map ([Char], [Char]) ([Char], [Char])
+djikstra :: (Ord t, Num t) => Map ([Char], [Char]) (Map ([Char], [Char]) t) -> ([Char], [Char]) -> Map ([Char], [Char]) ([Char], [Char])
 djikstra graph start = 
     let antecessores = initialize2 graph ("nil","nil")
         distancias = insert start 0 $ initialize2 graph 1000 -- 1/0 == infinity
     in djikstraLoop graph (antecessores,distancias)
 
-djikstraLoop _ (antecessores,empty)  = antecessores
 
+djikstraLoop :: (Ord t, Num t) => Map ([Char], [Char]) (Map ([Char], [Char]) t) -> (Map  ([Char], [Char])  ([Char], [Char]) , Map ( ([Char], [Char])) t) -> Map ([Char], [Char]) ([Char], [Char])
+djikstraLoop _ (antecessores,empty)  = antecessores
 djikstraLoop graph (antecessores,distancias) =
-    let (elem , distU) = fromJust $ Map.lookupGT (-1) distancias
-        distanciasMod = delete elem distancias
-        vizinhos = fromJust $ Map.lookup elem graph -- Pode dar errado devido a vertice que nao existe
+    let (u , distU) = fromJust $ Map.lookupGT (-1) distancias
+        distanciasMod = delete u distancias
+        vizinhos = fromJust $ Map.lookup u graph -- Pode dar errado devido a vertice que nao existe
     in  djikstraLoop graph $
-        Map.foldlWithKey (\(antAt,distAt) key peso -> relax elem distU key peso antAt distAt) (antecessores,distanciasMod) vizinhos
+        Map.foldlWithKey (\(antAt,distAt) key peso -> relax u distU key peso antAt distAt) (antecessores,distanciasMod) vizinhos
 
 initialize graph newValue = Map.map (\ _ -> newValue) graph
 initialize2 graph newValue = foldlWithKey (\ newMap key _ -> insert key newValue newMap) empty graph
 -- Percorrer mapa antigo, pegar vertices, inserir cada vertice em um mapa com valor dado
 
-relax elem distU key peso antecessores distancias
+relax :: (Ord t, Num t) => ([Char], [Char]) -> t -> ([Char], [Char]) -> t -> Map  ([Char], [Char])  ([Char], [Char]) -> Map (([Char], [Char])) t -> (Map  ([Char], [Char])  ([Char], [Char]) , Map ( ([Char], [Char])) t)
+relax u distU key peso antecessores distancias
     | distV > dist = (newAnt , newDist)
     | otherwise = (antecessores, distancias)
     where distV = fromMaybe (-1000) $ Map.lookup key distancias
-          newAnt = insert key elem antecessores
+          newAnt = insert key u antecessores
           dist = (distU + peso)
           newDist = insert key dist distancias
