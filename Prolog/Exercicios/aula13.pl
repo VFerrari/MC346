@@ -31,10 +31,10 @@ menor(arv(_,AE,_),R) :- menor(AE,R).
 
 % Verifica se uma árvore é uma abb
 checkBin(vazia).
-checkBin(arv(_,vazia,vazia))  :- !, true.
-checkBin(arv(X,AE,vazia)) :- !, checkBin(AE), maior(AE,R), R<X.
-checkBin(arv(X,vazia,AD)) :- !, checkBin(AD), menor(AD,R), R>X.
-checkBin(arv(X,AE,AD))    :- !, checkBin(AE), checkBin(AD), maior(AE,R), menor(AD,L), X<L, X>R. 
+checkBin(arv(_,vazia,vazia))  :- true.
+checkBin(arv(X,AE,vazia)) :- checkBin(AE), maior(AE,R), R<X.
+checkBin(arv(X,vazia,AD)) :- checkBin(AD), menor(AD,R), R>X.
+checkBin(arv(X,AE,AD))    :- checkBin(AE), checkBin(AD), maior(AE,R), menor(AD,L), X<L, X>R. 
 
 % Insere um item em uma abb
 insert(X,vazia,arv(X,vazia,vazia)).
