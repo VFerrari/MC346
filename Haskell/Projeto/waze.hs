@@ -64,3 +64,30 @@ insEdge (ori,dest,modoSaida,peso) modoEnt g
     = insert (ori,modoSaida) (insertEdge $ Map.lookup (ori,modoSaida) g) g
     where insertEdge m = insert (dest,modoEnt) peso $ fromMaybe empty m                 
     -- Insere a aresta, gerando o par (destino,modo) e o seu peso como valor.
+
+--djikstra :: (Ord t) => Map ([Char], [Char]) (Map ([Char], [Char]) t) -> ([Char], [Char]) -> Map ([Char], [Char]) ([Char], [Char])
+djikstra graph start = 
+    let antecessores = initialize2 graph ("nil","nil")
+        distancias = insert start 0 $ initialize2 graph 1000 -- 1/0 == infinity
+    in djikstraLoop graph (antecessores,distancias)
+
+djikstraLoop _ (antecessores,empty)  = antecessores
+
+djikstraLoop graph (antecessores,distancias) =
+    let (elem , distU) = fromJust $ Map.lookupGT (-1) distancias
+        distanciasMod = delete elem distancias
+        vizinhos = fromJust $ Map.lookup elem graph -- Pode dar errado devido a vertice que nao existe
+    in  djikstraLoop graph $
+        Map.foldlWithKey (\(antAt,distAt) key peso -> relax elem distU key peso antAt distAt) (antecessores,distanciasMod) vizinhos
+
+initialize graph newValue = Map.map (\ _ -> newValue) graph
+initialize2 graph newValue = foldlWithKey (\ newMap key _ -> insert key newValue newMap) empty graph
+-- Percorrer mapa antigo, pegar vertices, inserir cada vertice em um mapa com valor dado
+
+relax elem distU key peso antecessores distancias
+    | distV > dist = (newAnt , newDist)
+    | otherwise = (antecessores, distancias)
+    where distV = fromMaybe (-1000) $ Map.lookup key distancias
+          newAnt = insert key elem antecessores
+          dist = (distU + peso)
+          newDist = insert key dist distancias
