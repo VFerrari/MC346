@@ -8,10 +8,11 @@
 -- Modelagem por meio de grafo, e o menor caminho entre dois pontos (um para um).
 -- Retorna o melhor caminho, o modo de chegar a cada ponto, e o tempo total gasto.
 
--- TODO: Djikstra
 -- TODO: Resposta
+-- TODO: Fazer djikstra parar quando encontrar o vertice final (talvez).
 
 import Data.Map.Strict as Map
+import Data.List(minimumBy)
 import Data.Maybe
 
 main = do
@@ -21,76 +22,89 @@ main = do
        let linInput = lines input 
        
        -- Separando a entrada em tres seções
-       let gInput = takeWhile (not . Prelude.null) linInput -- Grafo
-       let prettyInput = Prelude.map (\(ori:dest:modo:peso:[]) -> (ori,dest,modo,peso)) $ Prelude.map words gInput
+       let gInput = Prelude.map words $ takeWhile (not . Prelude.null) linInput       -- Grafo
+       let waitInput = (init . init . tail) $ dropWhile (not . Prelude.null) linInput -- Periodos
+       let pathInput = words $ last linInput                                          -- Entrada e Final
        
-       let modInput = (init . init . tail) $ dropWhile (not . Prelude.null) linInput
-       let pathInput = words $ last linInput -- Caminho desejado
+       -- Cria o dicionário de tempos de espera
+       let mapWait = fromList $ Prelude.map (mapLines) $ Prelude.map words waitInput
+
+       -- Lê o grafo como lista de adjacências, e aplica o algoritmo de Djikstra no grafo.
+       let prev = djikstra (head pathInput, "a-pe") $ readGraph gInput mapWait empty
+      
+       print prev
        
-       -- Cria o dicionário de modificadores
-       let mapModo = fromList $ Prelude.map (mapLines) $ Prelude.map (words) modInput
+-- Transforma uma linha da entrada com os periodos em uma tupla (com valor periodo/2).
+mapLines (a:b:[]) = (a,c) where c = (read b :: Float)/2
 
-       -- Lê o grafo e o ordena
-       let graph = readGraph prettyInput mapModo empty
-       let ant = djikstra graph ("a", "a-pe")
-
-       print graph
-       
--- Transforma uma linha da entrada com os modificadores em uma tupla.
-mapLines (a:b:[]) = (a,c) where c = read b :: Float
-
--- Função que percorre a entrada, construindo o grafo.
 -- O grafo é modelado como uma lista de adjacências, feito com Maps no lugar de listas.
-readGraph inp modos og = Prelude.foldl(\g lin -> readEdge g modos lin) og inp
+readGraph inp modes og = Prelude.foldl(\g lin -> readEdge g modes lin) og inp
 
 -- Função que lê a aresta a ser inserida
+-- Insere, se necessario, os vértices envolvidos nessa aresta.
 -- Verifica o modo, e realiza as ações pertinentes a cada uma.
 -- Insere a aresta "a-pe", ou faz uma sequencias de inserções de transporte publico.
 -- Cria aresta de "mudança de plano", que simboliza entrar em um ônibus.
--- O preço dessa mudança está no dicionário mapModos.
-readEdge g mapModos (ori,dest,modo,strPeso)
-    | modo == "a-pe" = insEdge (ori,dest,modo,peso) "a-pe" g
-    | otherwise = insEdge (dest,dest,modo,0.0) "a-pe" $ 
-                  insEdge (ori,dest,modo,peso) modo $ 
-                  insEdge (ori,ori,"a-pe",modif) modo g
+-- O preço dessa mudança está no dicionário mapWait.
+readEdge g mapWait (ori:end:mode:strWei:[])
+    | mode == "a-pe" = insEdge (ori,end,"a-pe",wei) "a-pe" $
+                       insertIfNotMember (end, "a-pe") g
+    
+    | otherwise = insEdge (end,end,mode,0.0) "a-pe" $ 
+                  insertIfNotMember (end, "a-pe") $
+                  insEdge (ori,end,mode,wei) mode $ 
+                  insEdge (ori,ori,"a-pe",wait) mode g
         
-    where peso = read strPeso :: Float
-          modif = (fromJust $ Map.lookup modo mapModos)/2
+    where wei = read strWei :: Float
+          wait = fromJust $ Map.lookup mode mapWait
+
+-- Insere um vértice no grafo se ele não existir na lista de adjacencias.
+insertIfNotMember v g = if member v g then g else insert v empty g
 
 -- Insere uma aresta no grafo a partir de uma linha da entrada
 -- Insere o vértice de origem se não existe no grafo.
 -- Recebe a tupla de 4 elementos que representa a aresta.
 -- Recebe o "plano" do vértice destino (modo de entrada no vértice).
-insEdge (ori,dest,modoSaida,peso) modoEnt g 
-    = insert (ori,modoSaida) (insertEdge $ Map.lookup (ori,modoSaida) g) g
-    where insertEdge m = insert (dest,modoEnt) peso $ fromMaybe empty m                 
-    -- Insere a aresta, gerando o par (destino,modo) e o seu peso como valor.
+insEdge (ori,end,exitMode,wei) entryMode g 
+    = insert (ori,exitMode) (insertEdge $ Map.lookup (ori,exitMode) g) g
+    where insertEdge m = insert (end,entryMode) wei $ fromMaybe empty m                 
 
-djikstra :: (Ord t, Num t) => Map ([Char], [Char]) (Map ([Char], [Char]) t) -> ([Char], [Char]) -> Map ([Char], [Char]) ([Char], [Char])
-djikstra graph start = 
-    let antecessores = initialize2 graph ("nil","nil")
-        distancias = insert start 0 $ initialize2 graph 1000 -- 1/0 == infinity
-    in djikstraLoop graph (antecessores,distancias)
+-- Implementação do algoritmo de Djikstra.
+-- Encontra o menor caminho entre um vértice e todos os outros.
+-- Recebe o vértice inicial e o grafo, e retorna a árvore de antecessores.
+-- Inicia o dicionário de predecessores com "nil" e o de distâncias com infinito.
+djikstra start graph = djikstraLoop graph (prev,dist)
+    where prev = initialize graph ("nil","nil")
+          dist = insert start 0 $ initialize graph (1/0) -- 1/0 == infinity
 
-
-djikstraLoop :: (Ord t, Num t) => Map ([Char], [Char]) (Map ([Char], [Char]) t) -> (Map  ([Char], [Char])  ([Char], [Char]) , Map ( ([Char], [Char])) t) -> Map ([Char], [Char]) ([Char], [Char])
-djikstraLoop _ (antecessores,empty)  = antecessores
-djikstraLoop graph (antecessores,distancias) =
-    let (u , distU) = fromJust $ Map.lookupGT (-1) distancias
-        distanciasMod = delete u distancias
-        vizinhos = fromJust $ Map.lookup u graph -- Pode dar errado devido a vertice que nao existe
+-- Loop principal do Djikstra.
+-- Se a fila de prioridades estiver vazia, retorna a árvore de predecessores.
+-- Senão, extrai o menor elemento, encontra seus vizinhos no grafo, e relaxa as arestas.
+djikstraLoop graph (prev,dist)
+    | dist == empty = prev 
+    | otherwise =
+    
+    -- Extrai o mínimo, e encontra o vizinho desse vértice mínimo.
+    let (u , distU) = minimumBy (\x y-> compare (snd x) (snd y)) $ toList dist
+        delDist = delete u dist
+        neigh = fromJust $ Map.lookup u graph 
+    
+    -- Relaxa as arestas, e passa ao próximo vértice, recursivamente.
     in  djikstraLoop graph $
-        Map.foldlWithKey (\(antAt,distAt) key peso -> relax u distU key peso antAt distAt) (antecessores,distanciasMod) vizinhos
+        Map.foldlWithKey (\(currPrev,currDist) v wei -> relax (u,distU) (v,wei) (currPrev,currDist)) (prev,delDist) neigh
 
+-- Inicia um dicionário com um valor padrão passado.
 initialize graph newValue = Map.map (\ _ -> newValue) graph
-initialize2 graph newValue = foldlWithKey (\ newMap key _ -> insert key newValue newMap) empty graph
--- Percorrer mapa antigo, pegar vertices, inserir cada vertice em um mapa com valor dado
 
-relax :: (Ord t, Num t) => ([Char], [Char]) -> t -> ([Char], [Char]) -> t -> Map  ([Char], [Char])  ([Char], [Char]) -> Map (([Char], [Char])) t -> (Map  ([Char], [Char])  ([Char], [Char]) , Map ( ([Char], [Char])) t)
-relax u distU key peso antecessores distancias
-    | distV > dist = (newAnt , newDist)
-    | otherwise = (antecessores, distancias)
-    where distV = fromMaybe (-1000) $ Map.lookup key distancias
-          newAnt = insert key u antecessores
-          dist = (distU + peso)
-          newDist = insert key dist distancias
+-- Função de relaxação de aresta.
+-- Recebe o vértice de origem/distância calculada até ele (u, distU)
+-- Recebe o vértice de destino/peso da aresta a ele (v,wei)
+-- Recebe os dicionários de antecessores e distâncias (prev,dist).
+-- Atualiza o antecessor e a distância de V se d(V) > d(U) + wei
+relax (u,distU) (v,wei) (prev,dist)
+    | dV > d = (newPrev , newDist)
+    | otherwise = (prev, dist)
+    where dV = fromMaybe (-1/0) $ Map.lookup v dist
+          d = distU + wei
+          newPrev = insert v u prev
+          newDist = insert v d dist
