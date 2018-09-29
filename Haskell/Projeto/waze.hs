@@ -30,9 +30,14 @@ main = do
        let mapWait = fromList $ Prelude.map (mapLines) $ Prelude.map words waitInput
 
        -- Lê o grafo como lista de adjacências, e aplica o algoritmo de Djikstra no grafo.
-       let prev = djikstra (head pathInput, "a-pe") $ readGraph gInput mapWait empty
-      
-       print prev
+       let graph = readGraph gInput mapWait empty
+       let prev = djikstra (head pathInput, "a-pe") graph
+       let caminho = pathList prev (last pathInput) "a-pe" []
+       let prettyOutput = parsePath caminho (head pathInput)
+       let peso = calcularPeso graph caminho 0
+
+       putStrLn prettyOutput
+       print peso
        
 -- Transforma uma linha da entrada com os periodos em uma tupla (com valor periodo/2).
 mapLines (a:b:[]) = (a,c) where c = (read b :: Float)/2
@@ -108,3 +113,26 @@ relax (u,distU) (v,wei) (prev,dist)
           d = distU + wei
           newPrev = insert v u prev
           newDist = insert v d dist
+
+-- pathList :: Map  ([Char], [Char]) ([Char], [Char]) -> ([Char], [Char]) -> [([Char], [Char])] -> [([Char], [Char])]
+pathList prev "nil" "nil" lista = lista
+pathList prev vertice modo lista =
+    let ponto = (vertice, modo)
+        listaMod = ponto:lista
+        (vertPrev,modoPrev)= fromJust $ Map.lookup ponto prev
+    in  pathList prev vertPrev modoPrev listaMod
+
+parsePath ([a]) texto = texto
+parsePath (a:b:xs) texto
+    | modoOri == modoDest = if modoOri == "a-pe" then parsePath (b:xs) ape else parsePath (b:xs) texto
+    | otherwise = if modoDest == "a-pe" then parsePath (b:xs) descer else  parsePath (b:xs) texto
+    where   (vertOri, modoOri) = a 
+            (vertDest, modoDest) = b
+            ape = texto ++ (" a-pe " ++ vertDest)
+            descer = texto ++ ((" " ++ modoOri) ++ (" " ++ vertDest))
+
+calcularPeso gInput ([a]) acc = acc
+calcularPeso gInput (a:b:xs) acc = 
+    let peso = fromJust $ Map.lookup b $ fromJust $ Map.lookup a gInput
+    in  calcularPeso gInput (b:xs) (acc+peso)
+
