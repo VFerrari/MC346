@@ -6,52 +6,126 @@
 -- e um destino dado usando uma combinação de caminhar e usar transporte público.
 
 -- Modelagem por meio de grafo, e o menor caminho entre dois pontos (um para um).
+-- Grafo simplificado transformando cada modo de transporte em um "plano" distinto, com os vértices da linha.
 -- Retorna o melhor caminho, o modo de chegar a cada ponto, e o tempo total gasto.
 
+-- Modificado em: 30/09/2018
 
+import Data.Map.Strict as Map
+import Data.List(minimumBy)
+import Data.Maybe
 
--- TODO: Criar o tipo do grafo*
--- TODO: Ler o grafo e as características.
--- TODO: Biblioteca simples para operações em grafo (existe o Data.Graph mas não parece ser o que queremos)*
--- TODO: Modelar o grafo para simples implementação do algoritmo de Djikstra
--- TODO: Djikstra
--- TODO: Resposta
+main = do
+       input <- getContents 
+       let linInput = lines input 
+       
+       -- Separando a entrada em quatro seções:
+       let gInput = Prelude.map words $ takeWhile (not . Prelude.null) linInput       -- Grafo
+       let waitInput = (init . init . tail) $ dropWhile (not . Prelude.null) linInput -- Periodos
+       let pathInput = words $ last linInput                                          -- Começo e Final
+       let start = (head pathInput,"a-pe")                                            -- Começo
+       let end = (last pathInput,"a-pe")                                              -- Final
+       
+       -- Cria o dicionário de tempos de espera
+       -- Lê o grafo como lista de adjacências, e aplica o algoritmo de Djikstra.
+       let (ant,tam) = djikstra start end $ readGraph gInput empty $ fromList $
+                       Prelude.map (mapLines) $ Prelude.map words waitInput
+      
+       -- Percorre a árvore de antecessores, e retorna o caminho.
+       putStrLn $ parsePath (fst start) $ pathList end [] ant
+       print tam
+       
+-- Transforma uma linha da entrada com os periodos em uma tupla (com valor periodo/2).
+mapLines (a:b:[]) = (a,c) where c = (read b :: Float)/2
 
--- * = Mais urgentes
+-- O grafo é modelado como uma lista de adjacências, feito com Maps no lugar de listas.
+readGraph inp og modes = Prelude.foldl(\g lin -> readEdge g modes lin) og inp
 
--- Ideias para modelagem:
--- Junta todas as arestas entre 2 nós em uma, com peso igual ao menor.
--- Menor peso: a pé ou soma da metade do período do t. publico e o peso normal.
+-- Função que lê a aresta a ser inserida
+-- Insere, se necessario, os vértices envolvidos nessa aresta.
+-- Verifica o modo, e realiza as ações pertinentes a cada uma.
+-- Insere a aresta "a-pe", ou faz uma sequencias de inserções de transporte publico.
+-- Cria aresta de "mudança de plano", que simboliza entrar em um ônibus.
+-- O preço dessa mudança está no dicionário mapWait.
+readEdge g mapWait (ori:end:mode:strWei:[])
+    | mode == "a-pe" = insEdge (ori,end,"a-pe",wei) "a-pe" $
+                       insertIfNotMember (end, "a-pe") g
+                       
+    | otherwise = insEdge (end,end,mode,0.0) "a-pe" $ 
+                  insertIfNotMember (end, "a-pe") $
+                  insEdge (ori,end,mode,wei) mode $ 
+                  insEdge (ori,ori,"a-pe",wait) mode g
+    where wei = read strWei :: Float
+          wait = fromJust $ Map.lookup mode mapWait
 
-import Data.List (sortBy)
+-- Insere um vértice no grafo se ele não existir na lista de adjacencias.
+insertIfNotMember v g = if member v g then g else insert v empty g
 
--- Lista de adjacências. Grafo é uma lista de "No"
-data Aresta = Aresta Char String Float deriving (Show, Eq, Ord)
-data No = No Char [Aresta] deriving (Show, Eq)
+-- Insere uma aresta no grafo a partir de uma linha da entrada
+-- Insere o vértice de origem se não existe no grafo.
+-- Recebe a tupla de 4 elementos que representa a aresta.
+-- Recebe o "plano" do vértice destino (modo de entrada no vértice).
+insEdge (ori,end,exitMode,wei) entryMode g 
+    = insert (ori,exitMode) (insertEdge $ Map.lookup (ori,exitMode) g) g
+    where insertEdge m = insert (end,entryMode) wei $ fromMaybe empty m                 
 
-main = do 
-       input <- getContents
-       let inputSplit = map words $ lines input
-       putStrLn $ head $ lines input -- Placeholder
+-- Implementação do algoritmo de Djikstra.
+-- Encontra o menor caminho entre um vértice e todos os outros.
+-- Recebe o vértice inicial e o grafo, e retorna a árvore de antecessores.
+-- Inicia o dicionário de predecessores com "nil" e o de distâncias com infinito.
+djikstra start end graph = djikstraLoop graph end (pred,dist)
+    where pred = initialize graph ("nil","nil")
+          dist = insert start 0 $ initialize graph (1/0) -- 1/0 == infinity
 
--- Ler o grafo a partir do input dividido em palavras
-readInput :: [No] -> [String] -> [No]
-readInput g (or:stDe:mo:stPe) = 
-    let de = read stDe :: Char 
-        pe = read stPe :: Float
-    in insAresta or (Aresta de mo pe) g 
-   
+-- Loop principal do Djikstra.
+-- Se a fila de prioridades estiver vazia, retorna a árvore de predecessores.
+-- Se encontrar o vértice final, retorna a árvore e a distância total.
+-- Senão, extrai o menor elemento, encontra seus vizinhos no grafo, e relaxa as arestas.
+djikstraLoop graph end (pred,dist)
+    | dist == empty = (pred,(1/0))
+    | u == end = (pred,distU)
+    
+    -- Relaxa as arestas, e passa ao próximo vértice, recursivamente.
+    | otherwise = djikstraLoop graph end $
+                  Map.foldlWithKey (\(currPred,currDist) v wei -> relax (u,distU) (v,wei) (currPred,currDist)) (pred,delDist) neigh
 
--- Inserir aresta no grafo
-insAresta origem aresta [] = [No origem [aresta]]
-insAresta origem aresta ((No b l):gs)
-    | b == origem = ((No b (aresta:l)):gs)
-    | b /= origem = ((No b l):insAresta origem aresta gs)
+    -- Extrai o mínimo, e encontra o vizinho desse vértice mínimo.
+    where (u , distU) = minimumBy (\x y-> compare (snd x) (snd y)) $ toList dist
+          delDist = delete u dist
+          neigh = fromJust $ Map.lookup u graph 
 
--- Função auxiliar para peso de aresta.
-getFloat (Aresta _ _ f) = f
+-- Inicia um dicionário com um valor padrão passado.
+initialize graph newValue = Map.map (\ _ -> newValue) graph
 
--- Função de comparação de arestas para uso com SortBy
-sortFloat (Aresta _ _ f1) (Aresta _ _ f2)
-    | f1 > f2 = GT
-    | otherwise = LT
+-- Função de relaxação de aresta.
+-- Recebe o vértice de origem/distância calculada até ele (u, distU)
+-- Recebe o vértice de destino/peso da aresta a ele (v,wei)
+-- Recebe os dicionários de antecessores e distâncias (pred,dist).
+-- Atualiza o antecessor e a distância de V se d(V) > d(U) + wei
+relax (u,distU) (v,wei) (pred,dist)
+    | dV > d = (newPred , newDist)
+    | otherwise = (pred, dist)
+    where dV = fromMaybe (-1/0) $ Map.lookup v dist
+          d = distU + wei
+          newPred = insert v u pred
+          newDist = insert v d dist
+
+-- Função que retorna o menor caminho, em forma de lista.
+-- Percorre árvore de predecessores, adicionando-os à lista.
+pathList ("nil","nil") list _ = list
+pathList vert list pred =
+    let newList = vert:list
+        prevVert = fromJust $ Map.lookup vert pred
+    in  pathList prevVert newList pred
+
+-- Função que transforma a lista de menor caminho em uma string.
+-- Cria a saída do programa, separando cada vértice e modo.
+-- Exclui as "trocas de modo", onde os vértices são iguais.
+parsePath str ([_]) = str
+parsePath str (h:t:xs)
+    | headM == tailM = if headM == "a-pe" then parsePath walk (t:xs) else parsePath str (t:xs)
+    | otherwise = if tailM == "a-pe" then parsePath out (t:xs) else  parsePath str (t:xs)
+    where   (_, headM) = h 
+            (tailV, tailM) = t
+            walk = str ++ " a-pe " ++ tailV
+            out = str ++ (' ':headM) ++ (' ':tailV)
