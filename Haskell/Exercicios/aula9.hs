@@ -15,7 +15,7 @@
 -- M.lookup "f" dd
 
 
--- Teste:
+-- Exemplo simples:
 main = do 
        dados <- getLine
        let saida = unwords $ reverse $ words dados
