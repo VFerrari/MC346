@@ -40,7 +40,7 @@ Autor: [Jacques Wainer](https://ic.unicamp.br/~wainer).
 * [Algoritmo de Djikstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) - Famoso algoritmo para cálculo de caminhos mínimos em grafos simples.
 * [Data.Map.Strict](http://hackage.haskell.org/package/containers-0.6.0.1/docs/Data-Map-Strict.html) - Biblioteca de dicionários padrão da linguagem.
 
-## Coisas que restam fazer.
+## Checklist de coisas para fazer
   -  [x] Definir o tipo do grafo;
   -  [x] Ler o grafo e as características;
   -  [x] Modelar o grafo para simples implementação do algoritmo de Djikstra;
