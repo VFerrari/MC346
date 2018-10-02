@@ -19,3 +19,6 @@ pai(c,f).
 
 ant(A,B) :- pai(A,B).
 ant(A,B) :- pai(A,C),ant(C,B).
+
+% Exercicios:
+% Não tem...
