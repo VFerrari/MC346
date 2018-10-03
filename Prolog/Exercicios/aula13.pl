@@ -77,8 +77,8 @@ insertKey(K,NV,[dic(K,_)|R],[dic(K,NV)|R]) :- !, true.
 insertKey(K,V,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- insertKey(K,V,R,RR).  
 
 % Remove uma chave (e seu valor) do dicionário
-removeKey(K,[],[]) :- !, true.
-removeKey(K,[dic(K,V)|R],R) :- !, true.
+removeKey(_,[],[]) :- !, true.
+removeKey(K,[dic(K,_)|R],R) :- !, true.
 removeKey(K,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- removeKey(K,R,RR).
 
 % Contador: dicionario onde valor associado é um inteiro. 
@@ -86,3 +86,22 @@ removeKey(K,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- removeKey(K,R,RR).
 add1(K,[],[dic(K,1)]) :- !, true.
 add1(K,[dic(K,V)|R],[dic(K,VV)|R]) :- VV is V+1, !.
 add1(K,[dic(KK,VV)|R],[dic(KK,VV)|RR]) :- add1(K,R,RR).
+
+% Exercícios extras:
+% Conta os nos de uma abb
+countNodes(vazia,0).
+countNodes(arv(_,AE,AD),R) :- countNodes(AD,R1),countNodes(AE,R2), R is R1+R2+1.
+
+% Soma os nos de uma abb
+sumNodes(vazia,0).
+sumNodes(arv(N,AE,AD),R) :- sumNodes(AD,R1),sumNodes(AE,R2), R is R1+R2+N.
+
+% Converte abb em uma lista em ordem posfixa (esq,dir,no)
+postOrder(vazia,[]).
+postOrder(arv(N,AE,AD),R) :- postOrder(AE,R1),postOrder(AD,R2), append(R1,R2,RR), append(RR,[N],R).
+
+% Realiza busca em largura em uma abb
+levelOrder(X,R) :- levelOrder2([X],R).
+levelOrder2([],[]).
+levelOrder2([vazia|XS],R) :- levelOrder2(XS,R), !.
+levelOrder2([arv(N,AE,AD)|XS],[N|R]) :- append(XS,[AE,AD],RR), levelOrder2(RR,R).
