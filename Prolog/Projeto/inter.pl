@@ -42,9 +42,9 @@ clearall() :- retractall(inter_dic(_,_,_)).
 % Função que junta duas strings se há uma interseção.
 intersect2([],_,[]).
 intersect2([X|XS],Y,R) :- (valid([X|XS],Y) -> 
-							(prefix([X|XS],Y) -> R = Y ; 
-								intersect2(XS,Y,RR), R = [X|RR]) ; 
-							R = [X|XS]).
+                            (prefix([X|XS],Y) -> R = Y ; 
+                          	    intersect2(XS,Y,RR), R = [X|RR]) ;
+                            R = [X|XS]).
 
 % Verifica se duas strings têm tamanho 4 ou mais.
 valid(X,Y) :- length(X,XX), length(Y,YY), XX >= 4, YY >= 4.
