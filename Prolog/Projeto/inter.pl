@@ -48,3 +48,13 @@ intersect2([X|XS],Y,R) :- (valid([X|XS],Y) ->
 
 % Verifica se duas strings têm tamanho 4 ou mais.
 valid(X,Y) :- length(X,XX), length(Y,YY), XX >= 4, YY >= 4.
+
+
+%Dado uma stream e uma lista inicial, devolve uma lista com as linhas lidas.
+read_until_EOF(Stream, Lista, Lista_strings) :-     at_end_of_stream(Stream),
+                                                    Lista_strings = Lista.
+read_until_EOF(Stream, [], Lista_strings) :-        read_string(Stream, '\n', '\r', _, X),
+                                                    read_until_EOF(Stream, [X], Lista_strings), !.
+read_until_EOF(Stream, [Lista], Lista_strings) :-   read_string(Stream, '\n', '\r', _, X),
+                                                    read_until_EOF(Stream, [X:Lista], Lista_strings), !.
+
