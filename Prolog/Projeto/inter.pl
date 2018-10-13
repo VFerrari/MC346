@@ -11,17 +11,23 @@
 :- dynamic inter_dic/3.
 
 
-main() :-   nl,current_input(Stream),
+main() :-   current_input(Stream),
             read_until_EOF(Stream, [] , Input),
             getComb(Input, _ , Output),
-            write(Output), nl,
-            printList(Output).
+            % write(Output), nl,
+            printList(Output),
+            halt(0).
 
 printList([]).
-printList([X|Y]) :- write(X), nl, print(Y).
+printList([X|Y]) :- write(X), nl, printList(Y).
 
 % Temporaria: transforma em lista de chars e chama intersect.
-interchar(X,Y,R) :- clearall(), string_chars(X,XX), string_chars(Y,YY), intersect2(XX,YY,RR), string_chars(R,RR).
+interchar(X,Y,R) :- 
+                    % write("Comparando "), write(X), write(" "), write(Y), nl,
+                    clearall(),
+                    string_chars(X,XX),string_chars(Y,YY),
+                    intersect2(XX,YY,RR),
+                    string_chars(R,RR).
 
 % Retorna a lista sem o ultimo elemento
 init([_],[]).
@@ -77,9 +83,42 @@ read_until_EOF(Stream, Lista, Lista_strings) :-     read_string(Stream, '\n', '\
 
 %Essa funcao recebe um parametro, + ListaIn, - ListaOut
 
-getComb([A], ListaMid, [A:ListaOut]) :- write("B"), getComb(ListaMid, _, ListaOut).
-getComb([A,B|Xs], ListaMid, ListaOut) :-   intersect2(A, B, C),write(C),length(C, LenC), append(ListaMid, Xs, Merged),
-                                            (LenC == 0 ->
-                                                getComb([A|Xs], [B|ListaMid], ListaOut);
-                                                getComb([C|Merged], [], ListaOut)).
-getComb(_, _, _) :- write("Vish"). 
+getComb([], [], []).
+getComb(A, ListaMid, ListaOut) :-           length(A, LenA),
+                                            % write(LenA),write("Olha aqui : "), write(A),nl,
+                                            LenA = 1,
+                                            % write("Olha aqui : "), write(A),nl,
+                                            getComb(ListaMid, [] , QuaseRes),
+                                            stringAppend(A,QuaseRes, ListaOut).
+
+getComb([A,B|Xs], ListaMid, ListaOut) :-    interchar(A, B, CAB), interchar(B, A, CBA),
+                                            % write("A="), write(A),nl, write("B="), write(B),nl, write("CAB="), write(CAB),nl, write("CBA="),write(CBA),nl, 
+                                            chooseInter(A,B, CAB, CBA, C),
+                                            % write("C:"),write(C),nl,
+                                            stringAppend(ListaMid, Xs, Merged),
+                                            % write("Merged:"), write(Merged), nl,
+                                            stringAppend(A, Xs, AXs),
+                                            stringAppend(B, ListaMid, BMid),
+                                            stringAppend(C, Merged, CMerged),
+                                            % write("CMerged:"),write(CMerged),nl,
+                                            (A=C->
+                                                getComb(AXs, BMid, ListaOut);
+                                                getComb(CMerged, [], ListaOut)).
+
+stringAppend([],[],[]).
+stringAppend(X, [], R)  :-  (is_list(X) ->  R=X ; R=[X]).
+stringAppend([], X, R)  :-  (is_list(X) ->  R=X ; R=[X]).
+stringAppend(X,Y,R)     :-  is_list(Y), is_list(X), append(X,Y,R).
+stringAppend(X,Y,R)     :-  is_list(Y), append([X],Y,R).
+stringAppend(X,Y,R)     :-  is_list(X), append(X,[Y],R).
+stringAppend(X,Y,R)     :-  append([X], [Y], R).
+
+chooseInter(A, B,  A, B, A).
+chooseInter(_, B,  CAB, B, CAB).
+chooseInter(A, _, A, CBA, CBA).
+chooseInter(_, _, CAB, CBA, C) :-   string_length(CAB, Len1), string_length(CBA, Len2),
+                                    (Len1 = Len2 ->
+                                        C = CAB;
+                                        (Len1 > Len2 ->
+                                            C = CAB;
+                                            C = CBA)).
