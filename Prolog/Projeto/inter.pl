@@ -7,8 +7,18 @@
 % Depois une as strings que possuem interseção, e imprime o resultado.
 
 % Modificado em: 06/10/2018
-
+:- initialization(main).
 :- dynamic inter_dic/3.
+
+
+main() :-   nl,current_input(Stream),
+            read_until_EOF(Stream, [] , Input),
+            getComb(Input, _ , Output),
+            write(Output), nl,
+            printList(Output).
+
+printList([]).
+printList([X|Y]) :- write(X), nl, print(Y).
 
 % Temporaria: transforma em lista de chars e chama intersect.
 interchar(X,Y,R) :- clearall(), string_chars(X,XX), string_chars(Y,YY), intersect2(XX,YY,RR), string_chars(R,RR).
@@ -50,11 +60,26 @@ intersect2([X|XS],Y,R) :- (valid([X|XS],Y) ->
 valid(X,Y) :- length(X,XX), length(Y,YY), XX >= 4, YY >= 4.
 
 
-%Dado uma stream e uma lista inicial, devolve uma lista com as linhas lidas.
+% Dado uma stream e uma lista inicial, devolve uma lista com as linhas lidas.
 read_until_EOF(Stream, Lista, Lista_strings) :-     at_end_of_stream(Stream),
                                                     Lista_strings = Lista.
+
 read_until_EOF(Stream, [], Lista_strings) :-        read_string(Stream, '\n', '\r', _, X),
                                                     read_until_EOF(Stream, [X], Lista_strings), !.
-read_until_EOF(Stream, [Lista], Lista_strings) :-   read_string(Stream, '\n', '\r', _, X),
-                                                    read_until_EOF(Stream, [X:Lista], Lista_strings), !.
 
+read_until_EOF(Stream, [Lista], Lista_strings) :-   read_string(Stream, '\n', '\r', _, X),
+                                                    append([Lista], [X], XLista),
+                                                    read_until_EOF(Stream, XLista, Lista_strings), !.
+
+read_until_EOF(Stream, Lista, Lista_strings) :-     read_string(Stream, '\n', '\r', _, X),
+                                                    append(Lista,[X], XLista),
+                                                    read_until_EOF(Stream, XLista, Lista_strings), !.
+
+%Essa funcao recebe um parametro, + ListaIn, - ListaOut
+
+getComb([A], ListaMid, [A:ListaOut]) :- write("B"), getComb(ListaMid, _, ListaOut).
+getComb([A,B|Xs], ListaMid, ListaOut) :-   intersect2(A, B, C),write(C),length(C, LenC), append(ListaMid, Xs, Merged),
+                                            (LenC == 0 ->
+                                                getComb([A|Xs], [B|ListaMid], ListaOut);
+                                                getComb([C|Merged], [], ListaOut)).
+getComb(_, _, _) :- write("Vish"). 
