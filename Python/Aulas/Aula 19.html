@@ -1,0 +1,546 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<!-- 2018-10-16 Tue 10:24 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 19</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Jacques Wainer">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Aula 19</h1>
+<p>
+<a href="https://repl.it/">Python online</a>
+</p>
+
+<p>
+<a href="https://docs.python.org/3.5/tutorial/index.html">Python Tutorial</a>
+</p>
+
+<p>
+<a href="https://docs.python.org/3.5/library/index.html">Standard library</a>
+</p>
+
+
+<div id="outline-container-org317aa89" class="outline-2">
+<h2 id="org317aa89"><span class="section-number-2">1</span> OO in Python</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgf9c66df" class="outline-3">
+<h3 id="orgf9c66df"><span class="section-number-3">1.1</span> class</h3>
+<div class="outline-text-3" id="text-1-1">
+<pre class="example">class Pessoa:
+   def setidade(self,x):
+       if x &gt;0 :
+         self.idade=x
+
+   def getidade(self):
+        return self.idade
+</pre>
+
+<p>
+So da para definir os metodos. (Normalmente) nao ha a definicao de atributos/campos/variavies
+</p>
+
+<p>
+Há sempre o parametro <code>self</code> para os metodos, que indicam o objeto
+sobre o qual o metodo esta sendo executado
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgff59247" class="outline-3">
+<h3 id="orgff59247"><span class="section-number-3">1.2</span> objetos</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Atribuos/campos/variaveis dos objetos são sempre visiveis e
+modificaveis!! Nao ha atributos privados
+</p>
+
+<pre class="example">x=Pessoa()
+
+x.setidade(12)
+x.getidade()
+
+x.idade
+
+x.idade=99
+
+x.nome="jose"
+</pre>
+
+<p>
+Usualmente indica-se um atributo privado usando dois underscores <code>__nome__</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org68dbf8c" class="outline-3">
+<h3 id="org68dbf8c"><span class="section-number-3">1.3</span> Construtor</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<code>Pessoa()</code> cria um objeto, se existe isso chama o construtor
+<code>__init__</code>
+</p>
+<pre class="example">class Pessoa:
+   def __init__(self,idade,nome):
+      if idade&gt;0:
+         self.idade=idade
+      self.nome=nome
+
+x = Pessoa(-45,"jose")
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd9d6c52" class="outline-3">
+<h3 id="orgd9d6c52"><span class="section-number-3">1.4</span> Herança</h3>
+<div class="outline-text-3" id="text-1-4">
+<pre class="example">class Aluno(Pessoa):
+   pass
+
+a=Aluno()
+isinstance(a,Aluno)
+isinstance(a,Pessoa)
+
+</pre>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0ace9cc" class="outline-3">
+<h3 id="org0ace9cc"><span class="section-number-3">1.5</span> atributos de classe</h3>
+<div class="outline-text-3" id="text-1-5">
+<pre class="example">class Pessoa:
+   npernas=2
+
+x=Pessoa()
+y=Pessoa()
+
+x.npernas
+x.npernas=9
+x.npernas
+y.npernas
+Pessoa.npernas
+Pessoa.npernas=10
+y.npernas
+x.npernas
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgfad0580" class="outline-3">
+<h3 id="orgfad0580"><span class="section-number-3">1.6</span> OO in python?</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Usualmente nao se cria um monte de objetos. 
+</p>
+
+<p>
+Usualmente objetos sao uma interface para as bibliotecas
+</p>
+
+<p>
+<a href="https://docs.python.org/3/library/urllib.request.html#examples">http</a>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org4065b67" class="outline-2">
+<h2 id="org4065b67"><span class="section-number-2">2</span> Iterator</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Iterator é um thunk do haskell - uma promessa de computação que retorna
+um elemento por vez.
+</p>
+</div>
+
+
+<div id="outline-container-org4e77eeb" class="outline-3">
+<h3 id="org4e77eeb"><span class="section-number-3">2.1</span> classe</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>tem que ter um metodo <code>__iter__</code> que retorna um interator. A funçao
+<code>iter</code> chama o metodo <code>__iter__</code></li>
+<li>tem que ter o metodo <code>__next__</code> que retorna o proximo elemento. A
+função <code>next</code> chama o metodo <code>__next__</code></li>
+<li>gera a exception <code>StopIteration</code> quando não há mais elementos</li>
+</ul>
+
+<pre class="example">x = iter([2,3])
+next(x)
+next(x)
+next(x)
+</pre>
+
+<pre class="example">for x in l:
+  ...
+
+ii=iter(l)
+try: 
+  while True:
+    x = ii.__next__()
+    ...
+except StopIteration:
+    pass
+</pre>
+
+<pre class="example">class Repetidor:
+   def __init__(self,x,n=4):
+      self.n=n
+      self.x=x
+   def __iter__(self):
+      return self
+   def __next__(self):
+      if self.n&lt;=0: 
+         raise StopIteration
+      else:
+         self.n-=1
+         return self.x
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org42b77dd" class="outline-3">
+<h3 id="org42b77dd"><span class="section-number-3">2.2</span> generators</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Generators são funcoes que guardam o estado entre uma chamada e
+outra. Sintaticamente a unica diferença é usar um <code>yield</code> em vez do
+<code>return</code>
+</p>
+
+<pre class="example">def rep(x,n=4):
+  while n&gt;0:
+     n-=1
+     yield x
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga6f366d" class="outline-3">
+<h3 id="orga6f366d"><span class="section-number-3">2.3</span> generator comprehension</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li>Como list comprehention, mas usando <code>(</code> 4 <code>)</code></li>
+</ul>
+
+<pre class="example">zz= (x*x for x in range(10,1000) if x % 4 == 0)
+
+zz.__next__()
+next(zz)
+
+</pre>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgc231fca" class="outline-3">
+<h3 id="orgc231fca"><span class="section-number-3">2.4</span> intertools</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+uma biblioteca para iterators <a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgcb338ef" class="outline-3">
+<h3 id="orgcb338ef"><span class="section-number-3">2.5</span> coroutines</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+processos que enviam mensagens de um para outro. Normalmente
+produtores, filtros e consumidores
+</p>
+
+<p>
+um filtro precisa receber uma mensagem, e talvez enviar uma outra
+mensagem para o consumidor final
+</p>
+
+<ul class="org-ul">
+<li>enviar mensagem  <code>consumidor.sed(msg)</code></li>
+<li>receber mensagem <code>msg = (yield)</code></li>
+</ul>
+
+<pre class="example">def filtro(padrao,proximo):
+   print("Comecando filtro")
+   while True:
+     msg = (yield)
+     if padrao in msg:
+        proximo.send(msg)
+     
+
+def consumidor():
+    print("Comecando consumidor")
+    while True:
+       l=(yield)
+       print(l)
+
+
+</pre>
+
+<pre class="example">c=consumidor()
+f=filtro("abc",c)
+c.__next__() #para chegar no yield
+f.__next__() # para chegar no yield
+for x in "afh ahabcj agdb yyabctt abc abdddc".split():
+    f.send(x)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgce6f5e9" class="outline-2">
+<h2 id="orgce6f5e9"><span class="section-number-2">3</span> exercicios</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Sem usar a itertools
+</p>
+
+<ul class="org-ul">
+<li>pares: dado um iterator, retorna um iterator com os elementos nas posicoes pares (0,2)</li>
+<li>reverte: dado um iterator, reverte ele *</li>
+<li>zip: dado 2 iterators, retorna um iterator  que retorna os elementos intercalados</li>
+<li>cart: dado 2 iterators, retorna um iterator  com o produto cartesiano dos
+elementos *</li>
+<li>ciclo: dado um iterator, retorna os elemento snum ciclo infinito</li>
+<li>rangeinf(init,passo=1): retorna um iterator que gera numeros de init
+ate infinito, com passo</li>
+<li>take: como o take do haskell</li>
+<li>drop - como o drop do haskell</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Jacques Wainer</p>
+<p class="date">Created: 2018-10-16 Tue 10:24</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+
+</body></html>
