@@ -1,0 +1,495 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<!-- 2018-10-18 Thu 15:00 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 20</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Jacques Wainer">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Aula 20</h1>
+<p>
+<a href="https://repl.it/">Python online</a>
+</p>
+
+<p>
+<a href="https://docs.python.org/3.5/tutorial/index.html">Python Tutorial</a>
+</p>
+
+<p>
+<a href="https://docs.python.org/3.5/library/index.html">Standard library</a>
+</p>
+
+
+
+<div id="outline-container-orgf33e1d9" class="outline-2">
+<h2 id="orgf33e1d9"><span class="section-number-2">1</span> pacotes/modulos</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Pacotes pre definidos
+</p>
+<pre class="example">import math
+
+math.sin(3.14)
+</pre>
+
+<pre class="example">from math import sin,cos
+
+sin(3.14)
+</pre>
+
+<pre class="example">import math as ma
+
+ma.sin(3.14)
+</pre>
+
+<p>
+Veja o link para o standard library
+</p>
+
+<ul class="org-ul">
+<li>math - funcoes matematicas</li>
+<li>random - geracao de numeros aleatorios</li>
+<li>re - expressoes regulares</li>
+<li>os.path - diretorios e arquivos</li>
+<li>sys e os - interface com o sistema operacional</li>
+<li>collections - typos de dados para collections</li>
+<li>itertools - iterators</li>
+<li>functools - programacao funcional</li>
+<li>operator - operadores como funcao</li>
+<li>pickle - salva e le objetos ython</li>
+<li>concurrent.futures - processamento em paralelo</li>
+<li>urllib - acesso ao http</li>
+<li>time - informacoes temporais</li>
+</ul>
+
+
+<p>
+Pacotes externos - requer instalacao <code>pip</code> ou <code>conda</code>
+</p>
+
+<ul class="org-ul">
+<li>numpy - arrays</li>
+<li>pandas - data frames (tabelas)</li>
+<li>scipy - operacoes scientificas e estatisticas</li>
+<li>scikip-learn - aprendizado de maquina</li>
+<li>beautifulsoup - processar paginas html</li>
+<li>cherrypy - web server</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgfe42ee4" class="outline-2">
+<h2 id="orgfe42ee4"><span class="section-number-2">2</span> Programacao funcional</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgd63ebe8" class="outline-3">
+<h3 id="orgd63ebe8"><span class="section-number-3">2.1</span> funcoes anonimas</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<code>lambda</code> mas a funcao so pode ter 1 linha
+</p>
+<pre class="example">lambda x : x &gt; 0 
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0ec3331" class="outline-3">
+<h3 id="org0ec3331"><span class="section-number-3">2.2</span> map, filter</h3>
+<div class="outline-text-3" id="text-2-2">
+<pre class="example">map(lambda x : x+3, [4,5,6,7])
+
+filter(lambda x: x&gt;0, [4,-5,6,-7])
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org23ac8d6" class="outline-3">
+<h3 id="org23ac8d6"><span class="section-number-3">2.3</span> fold (reduce)</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+foldl:
+</p>
+<pre class="example">from functools import reduce
+
+reduce(combinacao, lista, inicial)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org60fa5e9" class="outline-3">
+<h3 id="org60fa5e9"><span class="section-number-3">2.4</span> funcoes que recebem funcoes como um argumento extra</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+key: uma funçao que é aplicada em cada elemento e cujo valor é usa
+</p>
+<pre class="example">max( iteratable, key=func)
+list.sort(key=func)
+sorted( iteratable, key=func)
+</pre>
+
+<pre class="example">max(lista,key=func)
+=
+max([(func(x),x) for x in lista][1]
+</pre>
+
+<p>
+Solucoes p/ o exercicio passado - retorna o item mais frequente
+</p>
+<pre class="example">usando dicionarios - linear
+
+max(set(l),key=l.count) - entre linear e quadratico
+
+max([(l.count(x),x) for x in l])[1] - quadratico
+  
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgab81a14" class="outline-3">
+<h3 id="orgab81a14"><span class="section-number-3">2.5</span> operator</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+<code>x[i]</code> ou <code>x['çhave']</code> ou <code>x.chave</code> podem ser convertidos em funcoes
+</p>
+
+<ul class="org-ul">
+<li><code>itemgetter</code> - <code>f = itemgetter(2)</code> entao <code>f(x)</code> retorna <code>x[2]</code></li>
+<li><code>f = itemgetter(2,3,5)</code> entao <code>f(x)</code> retorna <code>(x[2],x[3],x[5])</code></li>
+<li><code>getitem</code> - <code>getitem(x,2)</code> é o mesmo que <code>x[2]</code></li>
+<li><code>setitem</code> - <code>setitem(x,2,"aaa") é o mesmo que =x[2] = "aaa"</code></li>
+<li><code>itemgetter</code> retorna uma funcao, <code>getitem</code> faz o mesmo que o
+operador mas com sintaxe de chamada de funcao.</li>
+<li><code>attrgetter</code> - <code>f = attrgetter("chave")</code> entao <code>f(x)</code> retorna =x.chave</li>
+</ul>
+
+<p>
+<code>itemgetter</code> é util para o <code>key</code>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org343c3a8" class="outline-2">
+<h2 id="org343c3a8"><span class="section-number-2">3</span> Decorators</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Forma de modificar o comportamento (externo) de classes e funcoes.
+</p>
+
+<ul class="org-ul">
+<li>funcoes que se lembram de execucoes passadas</li>
+<li>funcoes que fazem logs</li>
+<li>sao funcoes que recebem funcoes como argumentos e retornam uma outra
+funcao (que cuida dessa parte externa)</li>
+</ul>
+
+<pre class="example">def llog(f):
+   def wrapper(*args): 
+      print("entrada:",args)
+      x = f(*args)
+      print("saida:",x)
+      return x
+   return wrapper
+
+def aux(x,y):
+   return 2*x+y
+      
+zz = llog(aux)
+</pre>
+</div>
+
+<div id="outline-container-org9ff3d27" class="outline-3">
+<h3 id="org9ff3d27"><span class="section-number-3">3.1</span> notacao @</h3>
+<div class="outline-text-3" id="text-3-1">
+<pre class="example">aux = llog(aux)
+
+@llog
+def aux(x,y):
+   return 2*x+y
+</pre>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org6f675b0" class="outline-3">
+<h3 id="org6f675b0"><span class="section-number-3">3.2</span> Decorators com estado - decorators como objetos</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Voce pode retornar um objeto. se o objeto for chamado como funcao, o
+metodo <code>__call__</code>  desse objeto sera executado 
+</p>
+
+<pre class="example">class decconta:
+   def __init__(self,f):
+      self.f=f
+      self.conta=0
+   def __call__(self,*args):
+      self.conta += 1
+      return self.f(*args)
+
+xx=decconta(aux)
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org62bad25" class="outline-3">
+<h3 id="org62bad25"><span class="section-number-3">3.3</span> mais info</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+<a href="https://realpython.com/primer-on-python-decorators/">a primer on decorators</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga7c6b54" class="outline-2">
+<h2 id="orga7c6b54"><span class="section-number-2">4</span> Exercicios</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>decorator para imprimir o tempo de execucao</li>
+<li>decorator para construir um string com linhas para  a hora e
+argumentos e saida de cada chamada da funcao. O string sera acessado
+via atributo</li>
+<li>decorator para memoizar a funcao. Memoizacao é criar um dicionario
+que se lembra dos valores de entrada e de saida da funcao ja
+executado. Se um desses valores de entrada for re-executado, a
+funcao nao sera re-executada - ela apenas retorna o valor de saida
+memoizado</li>
+<li>decorator para log argumentos e horario num arquivo (append no arquivo) dado como argumento
+do decorator (ver o primer on decorators)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Jacques Wainer</p>
+<p class="date">Created: 2018-10-18 Thu 15:00</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+
+</body></html>

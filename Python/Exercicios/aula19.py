@@ -48,3 +48,78 @@ def consumidor():
         l=(yield)
         print(l)
 
+# Exercicios:
+# Dado um iterator, retorna um iterator com os elementos nas posicoes pares (0,2)
+def pares(it):
+	l=[]
+	
+	try:
+		while(True):
+			a = next(it)
+			l.append(a)
+			next(it)
+	except StopIteration:
+		return iter(l)
+
+# Reverte um iterator
+def reverte(it):
+	l=list(it)
+	l.reverse()
+	return iter(l)
+
+# Reverte um iterator (2, mais eficiente e menos elegante)
+def reverte2(it):
+	l=[]
+	try:
+		while(True):
+			l.insert(0,next(it))
+	
+	except StopIteration:
+		return iter(l)
+
+# Dado 2 iterators, retorna um iterator que retorna os elementos intercalados
+def zip(it1,it2):
+	l=[]
+	try:
+		while(True):
+			l.append(next(it1))
+			l.append(next(it2))
+			
+	except StopIteration:
+		return iter(l)
+
+# Dado 2 iterators, retorna um iterator com o produto cartesiano dos elementos
+def cart(it1, it2):
+	l=[]
+	
+	try:
+		while(True):
+			a = next(it1)*next(it2)
+			l.append(a)
+		
+	except StopIteration:
+		return iter(l)
+		
+# Dado um iterator, retorna os elementos num ciclo infinito
+def ciclo(it):
+	l=list(it)
+	t=len(l)
+	curr=0
+	while(True):
+		yield l[curr%t]
+		curr+=1
+
+# Retorna um iterator que gera numeros de init ate infinito, com passo
+def rangeinf(init, step=1):
+	j=0
+	while(True):
+		yield init+j
+		j+=step
+
+# Pega os primeiros n elementos de uma lista
+def take(l,n):
+	return l[:n]
+
+# Elimina os primeiros n elementos de uma lista
+def drop(l,n):
+	return l[n:]
