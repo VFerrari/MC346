@@ -4,7 +4,7 @@
 
 > ***“Não coloquem Prolog no currículo!”** <br /> ― Wainer, Jacques*
 
-> ***“I'm harder on myself than you could ever be regardless.”** <br /> ― Eminem*
+> ***“Em Prolog, não confunda strings com strings, são duas coisas completamente diferentes.”** <br /> ― Ferragut, Daniel*
 
 > ***“Assim que termino o predicado de interseção, descubro um jeito melhor... Bom, hora de refazer.”** <br /> ― Ferrari, Victor*
 
