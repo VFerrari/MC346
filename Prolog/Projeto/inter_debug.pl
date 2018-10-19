@@ -14,6 +14,7 @@
 main :-     current_input(Stream),				% Verifica input
             read_until_EOF(Stream, [] , Input), % Lê entrada
             getComb(Input, _ , Output),			% Processa
+            %write(Output), nl,				      Debug
             printList(Output),					% Imprime saída
             halt(0).							% Termina
 
@@ -36,21 +37,27 @@ read_until_EOF(Stream, List, String_list) :-     read_string(Stream, '\n', '\r',
 % Junta as strings que tiverem interseção, e repete o processo.
 % Uma de cada vez, verifica interseção com todas as outras strings. Começa de novo se juntar.
 getComb([], [], []).
-getComb([A], MidList, OutList) :-         getComb(MidList, [] , PartSol),
+getComb([A], MidList, OutList) :-         % write("Olha aqui : "), write(A),nl,
+										  getComb(MidList, [] , PartSol),
                                           stringAppend([A], PartSol, OutList).
 
 getComb([A,B|Xs], MidList, OutList) :-    interString(A,B,CAB,CBA),
-                                          chooseInter(A,B,CAB, CBA, C),
+                                          % write("A="), write(A),nl, write("B="), write(B),nl, write("CAB="), write(CAB),nl, write("CBA="),write(CBA),nl, 
+                                          chooseInter(A,B, CAB, CBA, C),
+                                          % write("C:"),write(C),nl,
                                           stringAppend(MidList, Xs, Merged),
+                                          % write("Merged:"), write(Merged), nl,
                                           stringAppend(A, Xs, AXs),
                                           stringAppend(B, MidList, BMid),
                                           stringAppend(C, Merged, CMerged),
+                                          % write("CMerged:"),write(CMerged),nl,
                                           (A=C->
                                               getComb(AXs, BMid, OutList);
                                               getComb(CMerged, [], OutList)).
 
 % Função que recebe duas strings e aplica "intersect" dos dois lados.
-interString(A,B,CAB,CBA) :- string_chars(A,LA), string_chars(B,LB),
+interString(A,B,CAB,CBA) :- %write("Comparando "), write(A), write(" "), write(B), nl,
+							string_chars(A,LA), string_chars(B,LB),
 							intersect(LA, LB, LAB), intersect(LB, LA, LBA),
 							string_chars(CAB,LAB), string_chars(CBA,LBA).
 
