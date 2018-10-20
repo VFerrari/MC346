@@ -12,10 +12,10 @@
 :- initialization(main).
 
 main :-     current_input(Stream),				% Verifica input
-            read_until_EOF(Stream, [] , Input), % Lê entrada
-            getComb(Input, _ , Output),			% Processa
-            printList(Output),					% Imprime saída
-            halt(0).							% Termina
+            read_until_EOF(Stream, [] , Input), 		% Lê entrada
+            getComb(Input, _ , Output), 			% Processa
+            printList(Output),  				% Imprime saída
+            halt(0).						% Termina
 
 % Dado uma stream e uma lista inicial, devolve uma lista com as linhas lidas.
 read_until_EOF(Stream, List, String_list) :-     at_end_of_stream(Stream),
@@ -50,9 +50,9 @@ getComb([A,B|Xs], MidList, OutList) :-    interString(A,B,CAB,CBA),
                                               getComb(CMerged, [], OutList)).
 
 % Função que recebe duas strings e aplica "intersect" dos dois lados.
-interString(A,B,CAB,CBA) :- string_chars(A,LA), string_chars(B,LB),
-							intersect(LA, LB, LAB), intersect(LB, LA, LBA),
-							string_chars(CAB,LAB), string_chars(CBA,LBA).
+interString(A,B,CAB,CBA) :- 	string_chars(A,LA), string_chars(B,LB),
+			        intersect(LA, LB, LAB), intersect(LB, LA, LBA),
+			        string_chars(CAB,LAB), string_chars(CBA,LBA).
 
 % Encontra maior interseção entre duas strings, e devolve a junção entre ambas se houver.
 % Retorna a primeira se não houver interseção.
