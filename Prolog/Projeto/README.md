@@ -1,6 +1,6 @@
 # Projeto 2 - "Montagem de trechos com interseção"
 
- <img align = "left" src= https://geneticliteracyproject.org/wp-content/uploads/2018/06/6-20-2018-harnessing-the-human-genome-286123.png width="472" height="310"  hspace="20" vspace="15" alt="Genoma humano">
+ <img align = "left" src= https://geneticliteracyproject.org/wp-content/uploads/2018/06/6-20-2018-harnessing-the-human-genome-286123.png width="472" height="300"  hspace="20" vspace="15" alt="Genoma humano">
 
 > ***“Não coloquem Prolog no currículo!”** <br /> ― Wainer, Jacques*
 
