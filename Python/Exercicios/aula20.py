@@ -1,6 +1,22 @@
+# Teste 10:
+
+# Iterator que recebe um iterator e retorna os elementos sem repetições do mesmo elemento em sequencia.
+def noRepIter(it):
+	l=[]
+	try:
+		control = next(it)
+		l.append(control)
+		while True:
+			el = next(it)
+			if control != el:
+				l.append(el)
+				control = el
+	except StopIteration:
+			return iter(l)
+
 # Aula:
 
-# Teste 1 - Funcional
+# Teste 9 - Funcional
 def maxFunc(l):
 	max(set(l),key=l.count)
 
@@ -47,7 +63,7 @@ class strLog:
 	def __call__(self, *args):
 		t = time.localtime()
 		
-		# Para visualização, se há apenas um argumento, não passa como lista.
+		# Para visualização, se há apenas um argumento, não passa como tupla.
 		if (len(args) > 1):
 			arg = args
 		else:
@@ -63,7 +79,6 @@ class strLog:
 # que se lembra dos valores de entrada e de saida da funcao ja executado. 
 # Se um desses valores de entrada for re-executado, a funcao nao sera re-executada - 
 # ela apenas retorna o valor de saida memoizado
-# Poderia ser feita usando função em vez de classe.
 class memoizator:
 	def __init__(self,f):
 		self.f = f
@@ -85,7 +100,7 @@ def logFile(name):
 			fil = open(name,"a")
 			t = time.localtime()
 			
-			# Visualização, se há apenas um argumento, não passa como lista.
+			# Visualização, se há apenas um argumento, não passa como tupla.
 			if (len(args) > 1):
 				arg = args
 			else:

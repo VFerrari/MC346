@@ -1,7 +1,7 @@
 <!--?xml version="1.0" encoding="utf-8"?-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<!-- 2018-10-18 Thu 15:00 -->
+<!-- 2018-10-23 Tue 15:24 -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aula 20</title>
@@ -240,11 +240,24 @@ for the JavaScript code in this tag.
 <a href="https://docs.python.org/3.5/library/index.html">Standard library</a>
 </p>
 
-
-
-<div id="outline-container-orgf33e1d9" class="outline-2">
-<h2 id="orgf33e1d9"><span class="section-number-2">1</span> pacotes/modulos</h2>
+<div id="outline-container-org921227d" class="outline-2">
+<h2 id="org921227d"><span class="section-number-2">1</span> Exercicio 10</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+Implemente um iterator que recebe um iterator e retorna os elementos
+sem repetições do mesmo elemento em sequencia.
+</p>
+
+<pre class="example">iterator:  a a a b b a c a b b b d ...
+
+saida:     a b a c a b d ...
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgdbc0d93" class="outline-2">
+<h2 id="orgdbc0d93"><span class="section-number-2">2</span> pacotes/modulos</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Pacotes pre definidos
 </p>
@@ -300,13 +313,13 @@ Pacotes externos - requer instalacao <code>pip</code> ou <code>conda</code>
 </div>
 
 
-<div id="outline-container-orgfe42ee4" class="outline-2">
-<h2 id="orgfe42ee4"><span class="section-number-2">2</span> Programacao funcional</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orga9e9489" class="outline-2">
+<h2 id="orga9e9489"><span class="section-number-2">3</span> Programacao funcional</h2>
+<div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgd63ebe8" class="outline-3">
-<h3 id="orgd63ebe8"><span class="section-number-3">2.1</span> funcoes anonimas</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org61c669d" class="outline-3">
+<h3 id="org61c669d"><span class="section-number-3">3.1</span> funcoes anonimas</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 <code>lambda</code> mas a funcao so pode ter 1 linha
 </p>
@@ -315,9 +328,9 @@ Pacotes externos - requer instalacao <code>pip</code> ou <code>conda</code>
 </div>
 </div>
 
-<div id="outline-container-org0ec3331" class="outline-3">
-<h3 id="org0ec3331"><span class="section-number-3">2.2</span> map, filter</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org30fca55" class="outline-3">
+<h3 id="org30fca55"><span class="section-number-3">3.2</span> map, filter</h3>
+<div class="outline-text-3" id="text-3-2">
 <pre class="example">map(lambda x : x+3, [4,5,6,7])
 
 filter(lambda x: x&gt;0, [4,-5,6,-7])
@@ -325,9 +338,9 @@ filter(lambda x: x&gt;0, [4,-5,6,-7])
 </div>
 </div>
 
-<div id="outline-container-org23ac8d6" class="outline-3">
-<h3 id="org23ac8d6"><span class="section-number-3">2.3</span> fold (reduce)</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-org0c0543d" class="outline-3">
+<h3 id="org0c0543d"><span class="section-number-3">3.3</span> fold (reduce)</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 foldl:
 </p>
@@ -338,9 +351,9 @@ reduce(combinacao, lista, inicial)
 </div>
 </div>
 
-<div id="outline-container-org60fa5e9" class="outline-3">
-<h3 id="org60fa5e9"><span class="section-number-3">2.4</span> funcoes que recebem funcoes como um argumento extra</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-org462496b" class="outline-3">
+<h3 id="org462496b"><span class="section-number-3">3.4</span> funcoes que recebem funcoes como um argumento extra</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 key: uma funçao que é aplicada em cada elemento e cujo valor é usa
 </p>
@@ -367,9 +380,9 @@ max([(l.count(x),x) for x in l])[1] - quadratico
 </div>
 </div>
 
-<div id="outline-container-orgab81a14" class="outline-3">
-<h3 id="orgab81a14"><span class="section-number-3">2.5</span> operator</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-org213950f" class="outline-3">
+<h3 id="org213950f"><span class="section-number-3">3.5</span> operator</h3>
+<div class="outline-text-3" id="text-3-5">
 <p>
 <code>x[i]</code> ou <code>x['çhave']</code> ou <code>x.chave</code> podem ser convertidos em funcoes
 </p>
@@ -391,9 +404,9 @@ operador mas com sintaxe de chamada de funcao.</li>
 </div>
 </div>
 
-<div id="outline-container-org343c3a8" class="outline-2">
-<h2 id="org343c3a8"><span class="section-number-2">3</span> Decorators</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org82f01ba" class="outline-2">
+<h2 id="org82f01ba"><span class="section-number-2">4</span> Decorators</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Forma de modificar o comportamento (externo) de classes e funcoes.
 </p>
@@ -420,9 +433,9 @@ zz = llog(aux)
 </pre>
 </div>
 
-<div id="outline-container-org9ff3d27" class="outline-3">
-<h3 id="org9ff3d27"><span class="section-number-3">3.1</span> notacao @</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgc5461cf" class="outline-3">
+<h3 id="orgc5461cf"><span class="section-number-3">4.1</span> notacao @</h3>
+<div class="outline-text-3" id="text-4-1">
 <pre class="example">aux = llog(aux)
 
 @llog
@@ -435,9 +448,9 @@ def aux(x,y):
 
 
 
-<div id="outline-container-org6f675b0" class="outline-3">
-<h3 id="org6f675b0"><span class="section-number-3">3.2</span> Decorators com estado - decorators como objetos</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgba28508" class="outline-3">
+<h3 id="orgba28508"><span class="section-number-3">4.2</span> Decorators com estado - decorators como objetos</h3>
+<div class="outline-text-3" id="text-4-2">
 <p>
 Voce pode retornar um objeto. se o objeto for chamado como funcao, o
 metodo <code>__call__</code>  desse objeto sera executado 
@@ -457,9 +470,9 @@ xx=decconta(aux)
 </div>
 
 
-<div id="outline-container-org62bad25" class="outline-3">
-<h3 id="org62bad25"><span class="section-number-3">3.3</span> mais info</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-org2cb12f7" class="outline-3">
+<h3 id="org2cb12f7"><span class="section-number-3">4.3</span> mais info</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 <a href="https://realpython.com/primer-on-python-decorators/">a primer on decorators</a>
 </p>
@@ -467,9 +480,9 @@ xx=decconta(aux)
 </div>
 </div>
 
-<div id="outline-container-orga7c6b54" class="outline-2">
-<h2 id="orga7c6b54"><span class="section-number-2">4</span> Exercicios</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgf6562f0" class="outline-2">
+<h2 id="orgf6562f0"><span class="section-number-2">5</span> Exercicios</h2>
+<div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>decorator para imprimir o tempo de execucao</li>
 <li>decorator para construir um string com linhas para  a hora e
@@ -488,7 +501,7 @@ do decorator (ver o primer on decorators)</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Jacques Wainer</p>
-<p class="date">Created: 2018-10-18 Thu 15:00</p>
+<p class="date">Created: 2018-10-23 Tue 15:24</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 
