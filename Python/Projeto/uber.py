@@ -11,7 +11,7 @@
 # Modelagem por meio de grafo.
 # Retorna uma lista dos melhores percursos.
 
-# Modificado em: 02/11/2018
+# Modificado em: 03/11/2018
 
 # Implementação do algoritmo Floyd-Warshall.
 # Utilizado para calcular caminhos mínimos todos-para-todos em um grafo.
@@ -47,3 +47,36 @@ def floydWarshall2(graph):
 			pred[i][j] = pred[i][k]
 
 	return pred
+
+# Função que calcula a menor inconveniencia de dois passageiros
+# Recebe a matriz de distâncias e duas tuplas com locais de saída e chegada, uma de cada pass.
+# Faz todas as combinações de percursos.
+# Retorna uma tupla com a inconveniencia e um identificador de percurso. Retorna (-1,-1) se inconv. for maior que 1.4.
+def minInconv(dist, path1, path2):
+	dir1,dir2 = dist[path1[0]][path1[1]] , dist[path2[0]][path2[1]]
+	pathInconv,totInconv = [0,0],[]
+	
+	# 4 combinações:
+	# A,C,B,D - 0
+	pathInconv[0] = (dist[path1[0]][path2[0]] + dist[path2[0]][path1[1]])/dir1
+	pathInconv[1] = (dist[path2[0]][path1[1]] + dist[path1[1]][path2[1]])/dir2
+	totInconv.append(max(pathInconv))
+	
+	# A,C,D,B - 1
+	pathInconv[0] = (dist[path1[0]][path2[0]] + dir2 + dist[path2[1]][path1[1]])/dir1
+	pathInconv[1] = 1
+	totInconv.append(max(pathInconv))
+	
+	# C,A,D,B - 2
+	pathInconv[0] = (dist[path1[0]][path2[1]] + dist[path2[1]][path1[1]])/dir1
+	pathInconv[1] = (dist[path2[0]][path1[0]] + dist[path1[0]][path2[1]])/dir2
+	totInconv.append(max(pathInconv))
+	
+	# C,A,B,D - 3
+	pathInconv[0] = 1
+	pathInconv[1] = (dist[path2[0]][path1[0]] + dir1 + dist[path1[1]][path2[1]])/dir2
+	totInconv.append(max(pathInconv))
+
+	path = totInconv.index(min(totInconv))
+		
+	return totInconv[path],path if totInconv[path] < 1.4 else (-1,-1)
