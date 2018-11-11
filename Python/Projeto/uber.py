@@ -79,4 +79,4 @@ def minInconv(dist, path1, path2):
 
 	path = totInconv.index(min(totInconv))
 		
-	return totInconv[path],path if totInconv[path] < 1.4 else (-1,-1)
+	return (totInconv[path],path) if totInconv[path] < 1.4 else (-1,-1)
