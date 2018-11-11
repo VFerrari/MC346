@@ -11,7 +11,7 @@
 # Modelagem por meio de grafo.
 # Retorna uma lista dos melhores percursos.
 
-# Modificado em: 03/11/2018
+# Modificado em: 11/11/2018
 
 # Implementação do algoritmo Floyd-Warshall.
 # Utilizado para calcular caminhos mínimos todos-para-todos em um grafo.
@@ -30,22 +30,6 @@ def floydWarshall(graph):
 				if graph[i][j] > graph[i][k] + graph[k][j]:
 					graph[i][j] = graph[i][k] + graph[k][j]
 					pred[i][j] = pred[i][k]
-	return pred
-
-
-# Ou, mais elegante e menos natural (mais lento também)
-from itertools import product
-def floydWarshall2(graph):
-	n = len(graph)
-	pred = [[0] * n for i in range(n)]
-	for i ,j in product(range(n), repeat=2):
-		pred[i][j] = j
-			
-	for k,i,j in product(range(n), repeat=3):
-		if graph[i][j] > graph[i][k] + graph[k][j]:
-			graph[i][j] = graph[i][k] + graph[k][j]
-			pred[i][j] = pred[i][k]
-
 	return pred
 
 # Função que calcula a menor inconveniencia de dois passageiros
