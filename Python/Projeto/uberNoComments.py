@@ -1,5 +1,5 @@
 from sys import stdin
-from itertools import product
+from math import inf
 from collections import defaultdict
 
 def main():
@@ -24,7 +24,7 @@ def main():
 	listaDeIncov = sorted(listaDeIncov, key = lambda y: y[2])
 	for i in listaDeIncov:
 		origem, carona, incov, incovPath = i
-		if incov == float("inf"):
+		if incov == inf:
 			break
 		if viagensFeitas[origem] or viagensFeitas[carona]:
 			continue
@@ -82,7 +82,7 @@ def floydWarshall(originalGraph):
 		for j in range(n):
 			pred[i][j] = None
 			if originalGraph[i][j] == 0:
-				graph[i][j] = float("inf")
+				graph[i][j] = inf
 			else:
 				graph[i][j] = originalGraph[i][j]
 				pred[i][j] = j
@@ -123,7 +123,7 @@ def minInconv(dist, path1, path2):
 	totInconv.append(max(pathInconv))
 	path = totInconv.index(min(totInconv))
 		
-	return (totInconv[path],path) if totInconv[path] < 1.4 else (float("inf"),-1)
+	return (totInconv[path],path) if totInconv[path] < 1.4 else (inf,-1)
 
 if __name__ == "__main__":
 	main()
