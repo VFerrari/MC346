@@ -1,5 +1,5 @@
 # Teste 10:
-
+# Não totalmente correto (1/2 nota)
 # Iterator que recebe um iterator e retorna os elementos sem repetições do mesmo elemento em sequencia.
 def noRepIter(it):
 	l=[]
