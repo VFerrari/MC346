@@ -1,0 +1,461 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<!-- 2018-11-13 Tue 10:21 -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 21</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Jacques Wainer">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Aula 21</h1>
+
+
+<div id="outline-container-org3ae8bcc" class="outline-2">
+<h2 id="org3ae8bcc"><span class="section-number-2">1</span> Finalizando MC346</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Eu fiz uma intervenção cirurgica duas semanas atras e minha voz nao se
+recuperou tao rapidamente quanto o esperado.
+</p>
+
+<p>
+É improvável que minha voz melhore significativamente nas próximas
+semanas. Assim nos terminaremos a disciplina MC346 na 5a feira da
+semana que vem, com o teste final.
+</p>
+
+<p>
+So sobrou um tópico que precisaria ser coberto em Python: arrays numpy
+e talvez cython.
+</p>
+</div>
+
+<div id="outline-container-org3b0a598" class="outline-3">
+<h3 id="org3b0a598"><span class="section-number-3">1.1</span> Numpy</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+arrays em numpy são diferentes de listas ou listas de listas. Eles sao
+mais eficientes e ninguém serio usaria listas ou lista
+de listas em aplicações cientificas, que precisam ser eficientes tanto
+em memoria utilizada como em tempo de execução.
+</p>
+
+<p>
+Veja os 3 primeiros videos em
+<a href="https://www.youtube.com/watch?v=rN0TREj8G7U&amp;list=PLeo1K3hjS3uset9zIVzJWqplaWBiacTEU">https://www.youtube.com/watch?v=rN0TREj8G7U&amp;list=PLeo1K3hjS3uset9zIVzJWqplaWBiacTEU</a>
+que mostra bem os conceitos basicos de numpy.
+</p>
+
+<p>
+<a href="https://www.datacamp.com/community/tutorials/python-numpy-tutorial">https://www.datacamp.com/community/tutorials/python-numpy-tutorial</a> é
+um texto tambem bom 
+</p>
+
+<p>
+<a href="https://docs.scipy.org/doc/numpy-1.15.1/user/quickstart.html">https://docs.scipy.org/doc/numpy-1.15.1/user/quickstart.html</a> é user
+guide do numpy mas eu acho o texto um pouco difícil para aprender.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org060947d" class="outline-3">
+<h3 id="org060947d"><span class="section-number-3">1.2</span> Evite fazer seu proprio for no numpy</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Algo que esses tutorials nao falam é que voce deve evitar fazer seu
+proprio <code>for</code> para manipular as matrizes - eles são muito mais lentos
+que funções e operações ja implementadas no numpy e no scipy. 
+</p>
+
+<ol class="org-ol">
+<li>Sempre que possivel use essas funçoes implementadas
+<a href="https://docs.scipy.org/doc/numpy-1.15.1/user/quickstart.html#functions-and-methods-overview">uma lista</a>.</li>
+
+<li>Se nao for possivel, entao de uma olhada no 4 video de
+<a href="https://www.youtube.com/watch?v=rN0TREj8G7U&amp;list=PLeo1K3hjS3uset9zIVzJWqplaWBiacTEU">https://www.youtube.com/watch?v=rN0TREj8G7U&amp;list=PLeo1K3hjS3uset9zIVzJWqplaWBiacTEU</a>]]
+que fala sobre uma função util para fazer iteração em arrays.</li>
+
+<li>Ou implemente a sua função em cython. <a href="https://cython.readthedocs.io/en/latest/index.html">Cython</a> é uma combinação de C
+e python que é compilada e integra facilmente com python. Uma das
+seçoes <a href="https://cython.readthedocs.io/en/latest/index.html">desse manual</a> fala como integrar com o numpy.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orge08d701" class="outline-3">
+<h3 id="orge08d701"><span class="section-number-3">1.3</span> Teste do dia 22</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+sera sobre numpy. mas eu espero soluções que nao usam o <code>for</code>, e sim
+solucoes que usam as funcoes de numpy diretamente
+</p>
+
+<ul class="org-ul">
+<li>dado uma matriz, normalize as linhas de forma que a norma (soma dos
+quadrados) das linhas
+seja 1</li>
+
+<li>dado uma matriz, normalize as colunas</li>
+<li>dado ma matriz, calcule a soma dos elementos das linhas cujos 1o
+valores ( o valor da coluna 0)  sao &gt; 0
+(uma soma por linha)</li>
+<li>compute uma array 1D com o item de menor valor absoluto para cada coluna.</li>
+</ul>
+<pre class="example">mm = np.array(([[-5, -4, -3,  1],
+                [-1,  0, 10,  2],
+                [ 3,  4,  5,  0]])
+
+a = np.amin(np.abs(mm),axis=0)
+print(a)
+array([1, 0, 3, 0])
+</pre>
+<p>
+Essa solucao nao esta 100% certa. 1 nao é o menor numero em valor
+absoluto de <code>mm</code>  -1 é! Da mesma forma o 3 nao é o resultado correto,
+deveria ser o -3
+</p>
+<pre class="example">a = np.argmin(np.abs(mm),axis=0)
+print(a)
+array([1, 1, 0, 2])
+</pre>
+<p>
+Agora o <code>a</code> contem a linha correta. Precisamos usar uma das incexacoes
+complexas de array para pegar a linha correta (em <code>a</code>) e a coluna
+correta
+</p>
+<pre class="example">a = np.argmin(np.abs(mm),axis=0)
+print(mm[a, np.array([0,1,2,3])])
+[-1  0 -3  0]
+</pre>
+<p>
+Agora deu certo!
+</p>
+
+<ul class="org-ul">
+<li>dado 1 array 1D, troque todos os valores &gt; 0 para 1 e os &lt; 0 para -1</li>
+</ul>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2d3165f" class="outline-2">
+<h2 id="org2d3165f"><span class="section-number-2">2</span> Projeto</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+A versão 2 do projeto especifica o formato de saida e  como o
+programa sera executado. A pagina tambem contem 3 exemplos com as
+suas saidas. 
+</p>
+
+<p>
+Projeto para ser entregue via email dia 21/11 ate as 8h.
+</p>
+
+<br>
+<br>
+<br>
+<br>
+
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+</div>
+
+
+<div id="outline-container-org9a733c0" class="outline-2">
+<h2 id="org9a733c0"><span class="section-number-2">3</span> Exercicio</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+INDIVIDUAL
+</p>
+
+<p>
+A <a href="https://en.wikipedia.org/wiki/Benford's_law">lei de Benford</a> diz que uma distribuição do <b>primeiro dígito</b> de uma
+coleção de números reais não é uniforme (cada digito de 1 a 9 tem a
+mesma probabilidade de ser o primeiro digito de um número) mas segue
+uma distribuição que decai logaritmicamente. O link contem a formula
+da lei de Benford, mas em geral o digito 1 deve aparecer 30% das
+vezes, o digito 2 17.6%, o digito 3 12.5% etc.
+</p>
+
+<p>
+Escreva a função <code>benford</code> que dado um string que pode conter multiplas
+linhas (o string pode conter varios <code>'\n'</code>), <b>imprime</b> a proporção que
+cada um dos dígitos de 1 a 9 é o primeiro digito de um numero. Um
+numero ou esta no começo de uma linha ou esta separado de outro numero
+ou palavra por brancos.
+</p>
+
+
+<p>
+Pro favor respondam o questionario de avaliação do curso também.
+</p>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Jacques Wainer</p>
+<p class="date">Created: 2018-11-13 Tue 10:21</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+
+</body></html>
