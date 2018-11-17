@@ -19,9 +19,9 @@ from collections import defaultdict     # Manipulação de dicionários
 
 def main():
     out = []
-    graph, trips = readInput()          # Leitura da entrada
-    pred = floydWarshall(graph)         # Caminhos mínimos (modifica o grafo).
-    inconvList = allInconv(graph,trips) # Lista de inconveniências nos caminhos.
+    graph, trips, dictNPassageiro = readInput()          # Leitura da entrada
+    pred, minDistGraph = floydWarshall(graph)         # Caminhos mínimos (modifica o grafo).
+    inconvList = allInconv(minDistGraph,trips, dictNPassageiro) # Lista de inconveniências nos caminhos.
     
     # Ordena a lista pelas menores inconveniências.
     inconvList = sorted(inconvList, key = lambda y: y[2])
@@ -32,7 +32,7 @@ def main():
         doneTrips[trip] = False
     
     # Filtra a lista de viagens.
-    tripsWithRide, dirTrips = filterTrips(doneTrips, inconvList)
+    tripsWithRide, dirTrips = filterTrips(doneTrips, inconvList, dictNPassageiro)
     
     # Para cada viagem com carona, reconstroi o caminho
     out = tripPaths(pred, tripsWithRide, dirTrips)
@@ -49,11 +49,13 @@ def readInput():
     readGraph = True
     dictGraph = defaultdict(list)
     lastVertex = -1
+    dictNPassageiro = defaultdict(int)
     for line in stdin:
         
         # Troca de leitura.
         if line == "\n":
             readGraph = False
+            nPassageiro = 0
             continue
             
         # Leitura do grafo.
@@ -66,6 +68,7 @@ def readInput():
             
         # Leitura das viagens.
         else:
+            nPassageiro += 1
             splited = line.split()
             start = int(splited[0])
             end = int(splited[1])
@@ -74,61 +77,74 @@ def readInput():
             else:
                 trip = (start, end, int(splited[2]))
             trips.append(trip)
+            dictNPassageiro[trip] = nPassageiro
+
     
     # Matriz
     matGraph = createMatrixGraph(dictGraph, lastVertex+1)
-    return matGraph, trips
+    return matGraph, trips, dictNPassageiro
     
 # Cria uma matriz de adjacências.
 # Transforma um grafo de dicionário para matriz.
 # Recebe o grafo em dicionário e o tamanho do grafo, retorna o grafo em matriz.
 def createMatrixGraph(dictGraph, size):
-    matrix = [[inf]*size for i in range(size)]
+    matrix = [[0]*size for i in range(size)]
     for start in range(size):
         neighList = dictGraph[start]
         for neighbor in neighList:
             end = neighbor[0]
             weight = neighbor[1]
             matrix[start][end] = weight
+    # for i in matrix:
+        # print(*i)
     return matrix 
 
 # Implementação do algoritmo Floyd-Warshall.
 # Utilizado para calcular caminhos mínimos todos-para-todos em um grafo.
 # Supõe grafo dado em matriz de adjacências. Modifica a matriz de entrada.
 # Retorna a matriz de predecessores.
-def floydWarshall(graph):
-    n = len(graph)
-    pred = [[None] * n for i in range(n)]
+def floydWarshall(originalGraph):
+    n = len(originalGraph)
+    pred = [[0] * 	n for i in range(n)]
+    graph = [row[:] for row in originalGraph]
     for i in range(n):
         for j in range(n):
-            if graph[i][j] != inf:
+            pred[i][j] = None
+            if originalGraph[i][j] == 0:
+                graph[i][j] = inf
+            else:
+                graph[i][j] = originalGraph[i][j]
                 pred[i][j] = j
-                        
+
     for k in range(n):
         for i in range(n):
             for j in range(n):
                 if graph[i][j] > graph[i][k] + graph[k][j]:
                     graph[i][j] = graph[i][k] + graph[k][j]
                     pred[i][j] = pred[i][k]
-    return pred
+    for i in range(n):
+        graph[i][i] = 0
+    return (pred,graph)
 
 # Encontra a inconveniencia entre todos os pares de viagens.
 # Para as viagens em andamento, utiliza só os vértices atual e final.
 
 # PROBLEMA: viagens em andamentos quebram quando são "ride".
 # POSSIVEL PROBLEMA: Recálculo de problemas. Talvez remover caminhos 2 e 3 de minInconv, ou não fazer o recálculo.
-def allInconv(graph, trips):
+def allInconv(graph, trips, dictNPassageiro):
     inconvList = []
     for trip in trips:
         for ride in trips:
             if trip == ride:
                 continue
+            if len(ride) == 3:
+                continue
             if len(trip) == 2:
                 inconv, inconvPath = minInconv(graph, trip, ride)
             else:
-                ongoingTrip = (trip[3],trip[2])
+                ongoingTrip = (trip[2],trip[1])
                 inconv, inconvPath = minInconv(graph, ongoingTrip, ride)
-            inconvList.append((trip, ride, inconv, inconvPath))
+            inconvList.append((trip, ride, inconv, inconvPath, dictNPassageiro[trip], dictNPassageiro[ride]))
     return inconvList
     
 # Função que calcula a menor inconveniencia de dois passageiros
@@ -169,10 +185,10 @@ def minInconv(dist, path1, path2):
 # Coloca em outra lista as viagens sem carona.
 # Recebe o dicionário booleano de viagens feitas e a lista de inconveniências.
 # Retorna as duas listas de viagens criadas.
-def filterTrips(doneTrips, inconvList): 
+def filterTrips(doneTrips, inconvList, dictNPassageiro):
     tripsWithRide,dirTrips = [],[]
     for i in inconvList:
-        trip, ride, inconv, inconvPath = i
+        trip, ride, inconv, inconvPath, nTrip, nRide = i
         if inconv == inf:
             break
         if doneTrips[trip] or doneTrips[ride]:
@@ -180,12 +196,12 @@ def filterTrips(doneTrips, inconvList):
         doneTrips[trip] = True
         doneTrips[ride] = True
         tripsWithRide.append((trip,ride,inconvPath))
-        print("Viagem entre {} e {} feita com inconv = {}".format(trip, ride, inconv))
+        print("Viagem entre {} e {} feita com inconv = {}".format(nTrip, nRide, inconv))
     
     for i in doneTrips:
         if not doneTrips[i]:
             dirTrips.append(i)
-            print("Viagem direta de {}".format(i))
+            print("Viagem direta de {}".format(dictNPassageiro[i]))
     return tripsWithRide,dirTrips
 
 # Reconstrói o caminho de todas as viagens.
