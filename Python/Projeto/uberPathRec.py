@@ -13,7 +13,7 @@
 # Entre todas as combinações de passageiros calcula a inconveniência.
 # Com isso, divide entre as viagens com e sem carona.
 # Imprime os percursos sugeridos para cada viagem
-# Imprime apenas os vértices final e inicial de cada passageiro.
+# Imprime todo o percurso de cada viagem, por meio de reconstrução de caminho.
 
 # Modificado em: 18/11/2018
 
@@ -24,7 +24,7 @@ from collections import defaultdict     # Manipulação de dicionários
 def main():
     out = []
     graph, trips, dictNPass = readInput()          # Leitura da entrada
-    floydWarshall(graph)                           # Caminhos mínimos (modifica o grafo).
+    pred = floydWarshall(graph)                    # Caminhos mínimos (modifica o grafo).
     inconvList = allInconv(graph,trips, dictNPass) # Lista de inconveniências nos caminhos.
     
     # Ordena a lista pelas menores inconveniências.
@@ -38,9 +38,14 @@ def main():
     # Filtra a lista de viagens.
     tripsWithRide, dirTrips = filterTrips(doneTrips, inconvList, dictNPass)
     
+    # Para cada viagem com carona, reconstroi o caminho (NÃO PRECISA)
+    out = tripPaths(pred, tripsWithRide, dirTrips)
+    
     # Imprime os percursos
     printPaths(tripsWithRide, dirTrips)
-
+    
+    print(out)
+    return out
 
 # Lê a entrada do programa, ou seja, o grafo e as viagens.
 # Lê o grafo como um dicionário, e depois o transforma em matriz de adjacências. 
@@ -81,6 +86,7 @@ def readInput():
                 trip = (start, end, int(splited[2]))
             trips.append(trip)
             dictNPass[trip] = nPass
+
     
     # Matriz
     matGraph = createMatrixGraph(dictGraph, lastVertex+1)
@@ -105,31 +111,36 @@ def createMatrixGraph(dictGraph, size):
 # Retorna a matriz de predecessores.
 def floydWarshall(graph):
     n = len(graph)
+    pred = [[None] *    n for i in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j] != inf:
+                pred[i][j]=j
+
     for k in range(n):
         for i in range(n):
             for j in range(n):
                 if graph[i][j] > graph[i][k] + graph[k][j]:
                     graph[i][j] = graph[i][k] + graph[k][j]
+                    pred[i][j] = pred[i][k]
+    return pred
 
 # Encontra a inconveniencia entre todos os pares de viagens.
 # Para as viagens em andamento, utiliza só os vértices atual e final.
 # Viagens em andamento não podem ser caronas.
 def allInconv(graph, trips, dictNPass):
     inconvList = []
-    
-    # Percorre todas as combinações
     for trip in trips:
         for ride in trips:
             if trip == ride:
                 continue
-            if len(ride) == 3:      # Carona em andamento
+            if len(ride) == 3:
                 continue
-            if len(trip) == 2:      # Viagem completa
+            if len(trip) == 2:
                 inconv, inconvPath = minInconv(graph, trip, ride)
-            else:                   # Viagem em andamento
+            else:
                 ongoingTrip = (trip[2],trip[1])
                 inconv, inconvPath = minInconv(graph, ongoingTrip, ride)
-                
             inconvList.append((trip, ride, inconv, inconvPath, dictNPass[trip], dictNPass[ride]))
     return inconvList
     
@@ -163,22 +174,63 @@ def minInconv(dist, path1, path2):
 # Retorna as duas listas de viagens criadas.
 def filterTrips(doneTrips, inconvList, dictNPass):
     tripsWithRide,dirTrips = [],[]
-
     for i in inconvList:
         trip, ride, inconv, inconvPath, nTrip, nRide = i
-        if inconv == inf:                                   # Direta
+        if inconv == inf:
             break
-        if doneTrips[trip] or doneTrips[ride]:              # Completa
+        if doneTrips[trip] or doneTrips[ride]:
             continue
         doneTrips[trip] = True
         doneTrips[ride] = True
         tripsWithRide.append((trip,ride,inconvPath, nTrip, nRide))
+        print("Viagem entre {} e {} feita com inconv = {}".format(nTrip, nRide, inconv))
     
-    # Viagens diretas
     for i in doneTrips:
         if not doneTrips[i]:
-            dirTrips.append((i,dictNPass[i]))      # Tupla (viagem,pass)
+            dirTrips.append((i,dictNPass[i]))                   # Tupla (viagem,pass)
+            print("Viagem direta de {}".format(dictNPass[i]))
     return tripsWithRide,dirTrips
+
+# Reconstrói o caminho de todas as viagens.
+# Em viagens em andamento, o faz a partir do ponto de partida.
+# Recebe a matriz de predecessores, e as viagens divididas em duas listas.
+# Retorna uma lista de percursos.
+def tripPaths(pred, rides, direct):
+    allPaths=[]
+    currPath=[]
+    
+    # Com carona
+    for i in rides:
+        trip, ride, pathType, nTrip, nRide = i
+        
+        # A,C,B,D
+        if pathType == 0:
+            currPath = (pathRec(pred,trip[0],ride[0]) + pathRec(pred,ride[0],trip[1]) 
+                       + pathRec(pred,trip[1],ride[1]) + [ride[1]])
+        # A,C,D,B
+        else:
+            currPath = (pathRec(pred,trip[0],ride[0]) + pathRec(pred,ride[0],ride[1]) 
+                       + pathRec(pred,ride[1],trip[1]) + [trip[1]])
+                       
+        allPaths.append(currPath)
+    
+    # Sem carona
+    for i in direct:
+        currPath = (pathRec(pred, i[0][0], i[0][1]) + [i[0][1]])
+        allPaths.append(currPath)
+    return allPaths
+            
+
+# Reconstrução do caminho a partir do Floyd-Warshall.
+# Retorna sem o último elemento
+def pathRec(pred, u, v):
+    if pred[u][v] == None:
+        return []
+    path = [u]
+    while pred[u][v] != v :
+        u = pred[u][v]
+        path.append(u)
+    return path
 
 # Imprime os passageiros e percursos
 # Em viagens em andamento, o faz a partir do ponto atual.
@@ -202,8 +254,6 @@ def printPaths(rides, direct):
             print("percurso:  {} {} {} {}".format(start,ride[0],ride[1],trip[1]))
     
     # Sem carona
-    # i[0] : Viagem
-    # i[1] : Passageiro
     for i in direct:
         p = i[1]
         print("passageiro: {} ".format(p), end='')
