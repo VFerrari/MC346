@@ -162,7 +162,7 @@ def minInconv(dist, path1, path2):
 
     path = totInconv.index(min(totInconv))
                 
-    return (totInconv[path],path) if totInconv[path] < 1.4 else (inf,-1)
+    return (totInconv[path],path) if totInconv[path] <= 1.4 else (inf,-1)
 
 # Filtra a lista de viagens.
 # Coloca em uma nova lista em ordem as viagens com carona a serem feitas.
