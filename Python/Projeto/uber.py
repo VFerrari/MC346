@@ -15,7 +15,7 @@
 # Imprime os percursos sugeridos para cada viagem
 # Imprime apenas os vértices final e inicial de cada passageiro.
 
-# Modificado em: 18/11/2018
+# Modificado em: 20/11/2018
 
 from sys         import stdin           # Entrada padrão
 from math        import inf             # Infinito
@@ -97,6 +97,10 @@ def createMatrixGraph(dictGraph, size):
             end = neighbor[0]
             weight = neighbor[1]
             matrix[start][end] = weight
+    
+    # Iniciar diagonal principal com zero.
+    for i in range(size):
+        matrix[i][i] = 0
     return matrix 
 
 # Implementação do algoritmo Floyd-Warshall.
@@ -140,6 +144,10 @@ def allInconv(graph, trips, dictNPass):
 def minInconv(dist, path1, path2):
     dir1,dir2 = dist[path1[0]][path1[1]] , dist[path2[0]][path2[1]]
     pathInconv,totInconv = [0,0],[]
+
+    # Se o final de um for o início do outro (B = C)
+    if path1[1] == path2[0]:
+        return (inf,-1)
         
     # 2 combinações:
     # A,C,B,D - 0
