@@ -1,6 +1,6 @@
 # Projeto 3 - "Uber Pool"
 
- <img align = "left" src= https://ds055uzetaobb.cloudfront.net/image_optimizer/2451bee741e6bfbaed46c34be07fa696fd2663ed.png alt="Floyd-Warshall">
+ <img align = "left" src= https://ds055uzetaobb.cloudfront.net/image_optimizer/2451bee741e6bfbaed46c34be07fa696fd2663ed.png height=200 width=400 alt="Floyd-Warshall">
 
 > ***“Não se preocupem com os espaços.”** <br /> ― Wainer, Jacques*
 
