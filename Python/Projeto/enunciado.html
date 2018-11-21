@@ -1,10 +1,10 @@
 <!--?xml version="1.0" encoding="utf-8"?-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<!-- 2018-11-13 Tue 04:37 -->
+<!-- 2018-11-20 Tue 12:11 -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Projeto 3 - Uber pool - versão 2</title>
+<title>Projeto 3 - Uber pool - versão 3</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Jacques">
 <style type="text/css">
@@ -229,8 +229,8 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Projeto 3 - Uber pool - versão 2</h1>
 
-<div id="outline-container-orgfbe6bba" class="outline-2">
-<h2 id="orgfbe6bba"><span class="section-number-2">1</span> Como escolher caronas.</h2>
+<div id="outline-container-org0a0632c" class="outline-2">
+<h2 id="org0a0632c"><span class="section-number-2">1</span> Como escolher caronas.</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Vamos assumir que 2 passageiros do UBER aceitam dividir a viagem - carona. 
@@ -283,8 +283,8 @@ dividida e cada passageiro fará uma viagem individual.
 </div>
 
 
-<div id="outline-container-org1da3df1" class="outline-3">
-<h3 id="org1da3df1"><span class="section-number-3">1.1</span> exemplo</h3>
+<div id="outline-container-org0d6814a" class="outline-3">
+<h3 id="org0d6814a"><span class="section-number-3">1.1</span> exemplo</h3>
 <div class="outline-text-3" id="text-1-1">
 <table rules="groups" frame="hsides" cellspacing="0" cellpadding="6" border="2">
 
@@ -356,8 +356,8 @@ maior que 1.4. Entre os percursos 1 e 3, o sistema escolherá o percurso
 </div>
 </div>
 
-<div id="outline-container-orge8adcff" class="outline-3">
-<h3 id="orge8adcff"><span class="section-number-3">1.2</span> Viagens em andamento</h3>
+<div id="outline-container-org7adaf94" class="outline-3">
+<h3 id="org7adaf94"><span class="section-number-3">1.2</span> Viagens em andamento</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Pode acontecer que um passageiro ja esta em viagem. Digamos que 
@@ -376,8 +376,8 @@ T(X,C,B,D)/T(X,D) e para o outro T(X,C,D)/T(X,D)
 </div>
 
 
-<div id="outline-container-org93bf838" class="outline-2">
-<h2 id="org93bf838"><span class="section-number-2">2</span> Projeto</h2>
+<div id="outline-container-org23b8a3d" class="outline-2">
+<h2 id="org23b8a3d"><span class="section-number-2">2</span> Projeto</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 O program lera do standard input dados no formato
@@ -418,44 +418,9 @@ vertice 0 a 10. Esse passageiro sera denominado passageiro 1.
 </p>
 </div>
 
-<div id="outline-container-org0469fb6" class="outline-3">
-<h3 id="org0469fb6"><span class="section-number-3">2.1</span> Saída</h3>
+<div id="outline-container-orgafe7a3c" class="outline-3">
+<h3 id="orgafe7a3c"><span class="section-number-3">2.1</span> Algoritmos</h3>
 <div class="outline-text-3" id="text-2-1">
-<p>
-A saída deve ser uma lista dos percursos propostos. No máximo 2 
-passageiros  farão uma viagem compartilhada, e assuma uma estratégia 
-gulosa. Escolha o par de passageiros cuja percurso gera o menor 
-inconveniencia maxima, depois o próximo par de passageiros, e assim por 
-diante. 
-</p>
-
-<p>
-A saida deve ser no seguinte formato
-</p>
-<pre class="example">passageiros 3 e 2 percurso: 12 20 45 28
-passageiros 1 e 4 percurso: 0 50 35 10
-passageiro 5 percurso: 23 34
-</pre>
-<p>
-que indicam que os passageiros 3 e 2 farão uma viagem compartilhada. O
-percurso (que indica apenas os nós iniciais e finais) começa no 12
-onde ou o uber pega o passageiro 3 ou ele ja esta numa viagem em
-andamento, passa pelo no 20 para pegar o passageiro 2. O resto do
-percurso indica que a viagem vai ate o no 45 onde um dos passageiros
-desce e finalmente ate o 28 onde o outro desce. 
-</p>
-
-<p>
-A segunda linha  da saida indica que 1 e 4 nessa ordem, fazem uma
-viagem compartilhada, e finalmente a ultima linha indica que o
-passageiro 5 faz a viagem sozinho.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgb82c877" class="outline-3">
-<h3 id="orgb82c877"><span class="section-number-3">2.2</span> Algoritmos</h3>
-<div class="outline-text-3" id="text-2-2">
 <p>
 Voce pode usar o Dijkstra para calcular os T(X,Y) das formulas. 
 </p>
@@ -475,11 +440,71 @@ desconexos.
 </p>
 </div>
 </div>
+
+
+
+<div id="outline-container-orgd607830" class="outline-3">
+<h3 id="orgd607830"><span class="section-number-3">2.2</span> Saída</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+A saída deve ser uma lista dos percursos propostos. No máximo 2 
+passageiros  farão uma viagem compartilhada, e assuma uma estratégia 
+gulosa. Escolha o par de passageiros cuja percurso gera o menor 
+inconveniencia maxima, depois o próximo par de passageiros, e assim por 
+diante. 
+</p>
+
+<p>
+A saida deve ser no seguinte formato
+</p>
+<pre class="example">passageiros 3 e 2 percurso: 12 20 45 28
+passageiros 1 e 4 percurso: 0 50 35 10
+passageiro 5 percurso: 23 34
+</pre>
+<p>
+que indicam que os passageiros 3 e 2 farão uma viagem compartilhada. O
+percurso (que indica apenas os nos iniciais e finais) começa no 12
+onde ou o uber pega o passageiro 3 ou ele ja esta numa viagem em
+andamento, passa pelo no 20 para pegar o passageiro 2. O resto do
+percurso indica que a viagem vai ate o no 45 onde um dos passageiros
+desce e finalmente ate o 28 onde o outro desce. 
+</p>
+
+<p>
+A segunda linha da saida indica que 1 e 4 nessa ordem, fazem uma
+viagem compartilhada, e finalmente a ultima linha indica que o
+passageiro 5 faz a viagem sozinho.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb9701b9" class="outline-3">
+<h3 id="orgb9701b9"><span class="section-number-3">2.3</span> Execucao</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+O programa sera rodado com a chamada
+</p>
+<pre class="example">python proj3.py entrada1.txt
+</pre>
+<p>
+ou seja o nome do arquivo com a entrada sera parte da chamada (não
+usarei o standard input como nos outros 2 projetos). Assim o seu
+programa deve acessar a linha de execução para <code>sys.argv</code> para
+descobrir o nome do arquivo de dados. 
+</p>
+
+<p>
+Se voce esta usando uma bibloteca nao padrao (como o numpy ou outras)
+avise-o no email de submissão. 
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Jacques</p>
-<p class="date">Created: 2018-11-13 Tue 04:37</p>
+<p class="date">Created: 2018-11-20 Tue 12:11</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 

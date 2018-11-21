@@ -15,9 +15,9 @@
 # Imprime os percursos sugeridos para cada viagem
 # Imprime apenas os vértices final e inicial de cada passageiro.
 
-# Modificado em: 20/11/2018
+# Modificado em: 21/11/2018
 
-from sys         import stdin           # Entrada padrão
+from sys         import argv            # Vetor de argumentos
 from math        import inf             # Infinito
 from collections import defaultdict     # Manipulação de dicionários
 
@@ -53,34 +53,37 @@ def readInput():
     dictGraph = defaultdict(list)
     lastVertex = -1
     dictNPass = defaultdict(int)
-    for line in stdin:
-        
-        # Troca de leitura.
-        if line == "\n":
-            readGraph = False
-            nPass = 0
-            continue
+    
+    # Abrindo e lendo o arquivo.
+    with open(argv[1]) as fil:
+        for line in fil:
             
-        # Leitura do grafo.
-        if readGraph:
-            start, end, weight = line.split()
-            start, end = int(start), int(end)
-            lastVertex = lastVertex if lastVertex > max(start,end) else max(start,end)
-            weight = float(weight)
-            dictGraph[start].append((end,weight))
-            
-        # Leitura das viagens.
-        else:
-            nPass += 1
-            splited = line.split()
-            start = int(splited[0])
-            end = int(splited[1])
-            if len(splited) == 2:
-                trip = (start, end)
+            # Troca de leitura.
+            if line == "\n":
+                readGraph = False
+                nPass = 0
+                continue
+                
+            # Leitura do grafo.
+            if readGraph:
+                start, end, weight = line.split()
+                start, end = int(start), int(end)
+                lastVertex = lastVertex if lastVertex > max(start,end) else max(start,end)
+                weight = float(weight)
+                dictGraph[start].append((end,weight))
+                
+            # Leitura das viagens.
             else:
-                trip = (start, end, int(splited[2]))
-            trips.append(trip)
-            dictNPass[trip] = nPass
+                nPass += 1
+                splited = line.split()
+                start = int(splited[0])
+                end = int(splited[1])
+                if len(splited) == 2:
+                    trip = (start, end)
+                else:
+                    trip = (start, end, int(splited[2]))
+                trips.append(trip)
+                dictNPass[trip] = nPass
     
     # Matriz
     matGraph = createMatrixGraph(dictGraph, lastVertex+1)
