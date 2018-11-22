@@ -233,10 +233,33 @@ def aula():
 # Exercícios:
 
 # Normaliza as linhas de uma matriz (soma dos quadrados é 1)
+def normaLine(mat):
+    norm = np.sqrt((mat*mat).sum(axis=1))
+    return (mat/norm.reshape(-1,1)).astype(float)
+
 # Normaliza as colunas de uma matriz
+def normaCol(mat):
+    norm = np.sqrt((mat*mat).sum(axis=0))
+    return (mat/norm.reshape(1,-1)).astype(float)
+
 # Calcula a soma dos elementos das linhas cujos primeiros valores são >0
+def sumPosFirstN(mat):
+    sums = mat.sum(axis=1)
+    nM=np.transpose(mat)
+    pos = nM[0] > 0
+    return sums[pos]
+    
 # Computa um array 1D com o item de menor valor absoluto para cada coluna.
+def minAbsCol(mat):
+    a = np.argmin(np.abs(mat), axis=0)
+    return mat[a, np.arange(mat.shape[1])]
+
 # Dado um array 1D, troca todos os valores >0 para 1 e os <0 para -1
+def separatePosNeg(arr):
+    pos,neg = arr > 0, arr < 0
+    arr[pos] = 1
+    arr[neg] = -1
+    return arr
 
 if __name__ == "__main__":
     aula()
