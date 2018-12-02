@@ -3,8 +3,8 @@
 :- dynamic pai/2.
 
 soma1(CH,DIC,NDIC) :- append(A,[dic(CH,V)|B],DIC)
-		   -> VV is V+1, append(A,[dic(CH,VV)|B], NDIC)
-		   ; NDIC = [dic(CH,1)|DIC].
+           -> VV is V+1, append(A,[dic(CH,VV)|B], NDIC)
+           ; NDIC = [dic(CH,1)|DIC].
 
 map1(_,[]).
 map1(P,[X|R]) :- G=..[P,X], call(G), map1(P,R).

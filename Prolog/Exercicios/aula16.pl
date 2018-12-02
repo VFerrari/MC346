@@ -1,4 +1,5 @@
-% Aula:
+% Aula: Nada
+
 % Teste:
 % Insere um item em uma abb-dicionário
 insereabb(C,V,vazia,arv(C,V,vazia,vazia)).

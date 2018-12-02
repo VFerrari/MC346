@@ -11,12 +11,12 @@
 
 :- initialization(main).
 
-main :-     current_input(Stream),				% Verifica input
+main :-     current_input(Stream),              % Verifica input
             read_until_EOF(Stream, [] , Input), % Lê entrada
-            getComb(Input, _ , Output),			% Processa
-            %write(Output), nl,				      Debug
-            printList(Output),					% Imprime saída
-            halt(0).							% Termina
+            getComb(Input, _ , Output),         % Processa
+            %write(Output), nl,                   Debug
+            printList(Output),                  % Imprime saída
+            halt(0).                            % Termina
 
 % Dado uma stream e uma lista inicial, devolve uma lista com as linhas lidas.
 read_until_EOF(Stream, List, String_list) :-     at_end_of_stream(Stream),
@@ -38,7 +38,7 @@ read_until_EOF(Stream, List, String_list) :-     read_string(Stream, '\n', '\r',
 % Uma de cada vez, verifica interseção com todas as outras strings. Começa de novo se juntar.
 getComb([], [], []).
 getComb([A], MidList, OutList) :-         % write("Olha aqui : "), write(A),nl,
-										  getComb(MidList, [] , PartSol),
+                                          getComb(MidList, [] , PartSol),
                                           stringAppend([A], PartSol, OutList).
 
 getComb([A,B|Xs], MidList, OutList) :-    interString(A,B,CAB,CBA),
@@ -57,9 +57,9 @@ getComb([A,B|Xs], MidList, OutList) :-    interString(A,B,CAB,CBA),
 
 % Função que recebe duas strings e aplica "intersect" dos dois lados.
 interString(A,B,CAB,CBA) :- %write("Comparando "), write(A), write(" "), write(B), nl,
-							string_chars(A,LA), string_chars(B,LB),
-							intersect(LA, LB, LAB), intersect(LB, LA, LBA),
-							string_chars(CAB,LAB), string_chars(CBA,LBA).
+                            string_chars(A,LA), string_chars(B,LB),
+                            intersect(LA, LB, LAB), intersect(LB, LA, LBA),
+                            string_chars(CAB,LAB), string_chars(CBA,LBA).
 
 % Encontra maior interseção entre duas strings, e devolve a junção entre ambas se houver.
 % Retorna a primeira se não houver interseção.
@@ -68,7 +68,7 @@ interString(A,B,CAB,CBA) :- %write("Comparando "), write(A), write(" "), write(B
 intersect([],_,[]).
 intersect([X|XS],Y,R) :- (valid([X|XS],Y) ->
                             (prefix([X|XS],Y) -> R = Y ;
-                          	    intersect(XS,Y,RR), R = [X|RR]) ;
+                                intersect(XS,Y,RR), R = [X|RR]) ;
                             R = [X|XS]).
 
 % Verifica se duas strings têm tamanho 4 ou mais.

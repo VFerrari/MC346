@@ -1,7 +1,7 @@
 -- Daniel Pereira Ferragut, RA 169488
 -- Victor Ferreira Ferrari, RA 187890
 
--- Projeto 1 de MC346 - Waze para transporte público	
+-- Projeto 1 de MC346 - Waze para transporte público    
 -- Programa em Haskell que calcula o caminho mais rápido entre uma origem
 -- e um destino dado usando uma combinação de caminhar e usar transporte público.
 
