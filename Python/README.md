@@ -7,7 +7,7 @@ Em 2018/2019, é uma das linguagens [mais utilizadas](https://www.tiobe.com/tiob
 Possui uma filosofia focada em legibilidade de código e simplicidade.
 
 <a href="https://data-flair.training/blogs/features-of-python/">
- <img src=https://d2h0cx97tjks2p.cloudfront.net/wp-content/uploads/sites/2/2017/12/Features-of-python-01.jpg>
+ <img height=300 src=https://d2h0cx97tjks2p.cloudfront.net/wp-content/uploads/sites/2/2017/12/Features-of-python-01.jpg>
 </a>
 
 
@@ -42,5 +42,5 @@ O projeto envolve encontrar duplas de passageiros que podem dividir uma viagem.
 Mais informações disponíveis na pasta `Projeto`.
 
 <a href="https://xkcd.com/353/">
- <img src=https://imgs.xkcd.com/comics/python.png>
+ <img height=400 src=https://imgs.xkcd.com/comics/python.png>
 </a>
