@@ -9,8 +9,8 @@ Não é uma linguagem muito utilizada, assim como seu paradigma, mas é uma ling
  <img align="center" hspace=10 height=40 width=25 src=https://orig00.deviantart.net/f74d/f/2013/091/7/1/it_s_something_in_hd_by_lemmino-d6025iy.png>
 </a>
 
-<a href="https://plus.google.com/communities/105822441858552468682">
- <img height=200 width=300 src=https://lh3.googleusercontent.com/-Pfh2rcLLUZQ/AAAAAAAAAAI/AAAAAAAAAA0/ODjES7BRbV8/w360-h203-p/photo.jpg>
+<a href="http://web.cse.ohio-state.edu/~stiff.4/cse3521/prolog-resolution.html">
+ <img height=250 width=450 src=http://web.cse.ohio-state.edu/~stiff.4/cse3521/images/prolog-resolution-ex2.png>
 </a>
 
 Implementação
