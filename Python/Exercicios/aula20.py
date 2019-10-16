@@ -1,4 +1,18 @@
 # Teste 10:
+# Versão corrigida (ver issue #4: https://github.com/VFerrari/MC346/issues/4)
+#
+# Não podemos expandir o iterator completamente, devemos iterar de modo
+# "lazy" (https://en.wikipedia.org/wiki/Lazy_evaluation)
+def norep(iterator):
+    ultimo = next(iterator)
+    yield ultimo
+    for x in iterator:
+        if x != ultimo:
+            ultimo = x
+            yield ultimo
+
+
+# Teste 10:
 # Não totalmente correto (1/2 nota)
 # Iterator que recebe um iterator e retorna os elementos sem repetições do mesmo elemento em sequencia.
 def noRepIter(it):
